@@ -4,7 +4,7 @@
       <div class="login-form">
         <!--        todo 登录表单-->
         <el-form :model="form" :rules="rules" ref="form">
-          <el-form-item>账号登录.</el-form-item>
+          <el-form-item>账号登录</el-form-item>
           <!--          账号-->
           <el-form-item prop="account">
             <el-input placeholder="请输入您的用户名" v-model="form.account">
