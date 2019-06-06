@@ -1,0 +1,136 @@
+@import "./app-variables.scss";
+html, body {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  color:$font-white;
+  background-color: #07162f;
+}
+// todo 修改element默认样式
+// 修改按钮样式
+.my-button{
+  background: linear-gradient(#188fd4, #0e3769) !important;
+  border-color:transparent !important;
+}
+
+// 修改输入框
+.el-input--prefix .el-input__inner,.el-input__inner{
+  background-color: $input-back !important;
+  border: 1px solid $input-back !important;
+}
+.el-input__inner{
+  color: $input-color !important;
+}
+.el-input__inner:focus{
+  border: 1px solid $input-color !important;
+}
+
+// 修改表单颜色
+.el-form-item__label{
+  color: $font-white !important;
+}
+
+// 拉下选项
+.el-select-dropdown__item{
+  color: $font-white !important;
+}
+.el-select-dropdown__wrap{
+  background-color: $dialog-main;
+}
+.el-select-dropdown__item.selected{
+  color: $font-white !important;
+  background-color: $input-back;
+}
+.el-select-dropdown__item.hover, .el-select-dropdown__item:hover{
+  color: $font-white !important;
+  background-color: $input-back !important;
+}
+.el-select-dropdown{
+  border-color: $input-color !important;
+}
+
+// 修改表格样式
+
+//修改删除提示框样式
+.el-message-box{
+  background-color: $dialog-main !important;
+  border-color: transparent !important;
+  .el-message-box__header{
+    background-color: $dialog-header !important;
+    .el-message-box__title{
+      color:  $font-white;
+      font-weight: bold;
+    }
+  }
+  .el-message-box__message{
+    color: $font-white !important;
+  }
+  .el-message-box__btns{
+    & > :last-child{
+      background-color: $table-header;
+      border-color: transparent;
+    }
+  }
+}
+
+// tab 样式
+.el-tabs__item,.el-tabs--card > .el-tabs__header .el-tabs__nav,.el-tabs--card > .el-tabs__header {
+  border-color: $table-header !important;
+  color: $font-white !important;
+}
+.el-tabs__item.is-active {
+  color: $font-white;
+  background-color: $table-header;
+}
+
+// 输入框尾部样式
+.el-input-group__append{
+  background-color: $table-header !important;
+  font-size: 14px;
+  border-color: transparent !important;
+  color: $font-white !important;
+  cursor: Pointer;
+}
+
+// 最近30天报警监控样式、因为有多处使用这个样式
+.alarm-record{
+  .el-dialog__body{
+    padding: 0 !important;
+    // title
+    &> :nth-child(1){
+      display: flex;
+      justify-content: space-between;
+      background-color: $table-main;
+      line-height: 30px;
+      padding: 0 5px;
+      color: $table-header;
+    }
+    // form
+    & > :nth-child(2){
+      padding: 10px;
+      .el-form-item__content{
+        line-height: 25px;
+        div{
+          color: #167FFF;
+          span{
+            color: $font-white;
+          }
+        }
+      }
+      .el-form-item{
+        margin-bottom: 10px;
+        border-bottom: 1.2px solid $input-back;
+      }
+    }
+  }
+}
+
+// 字体按钮样式
+.el-button--text{
+  color: $font-white !important;
+}
+
+//复选框未选中时候，文字的颜色
+.el-checkbox__label{
+  color: #409EFF;
+}
