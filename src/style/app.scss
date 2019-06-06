@@ -21,9 +21,9 @@ html, body {
 .el-input__inner{
   color: $input-color !important;
 }
-.el-input__inner:focus{
-  border: 1px solid $input-color !important;
-}
+//.el-input__inner:focus{
+//  border: 1px solid $input-color !important;
+//}
 
 // 修改表单颜色
 .el-form-item__label{
@@ -46,7 +46,8 @@ html, body {
   background-color: $input-back !important;
 }
 .el-select-dropdown{
-  border-color: $input-color !important;
+  //border-color: $input-color !important;
+  border-color: $input-back !important;
 }
 
 // 修改表格样式

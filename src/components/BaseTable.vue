@@ -226,6 +226,9 @@ export default {
 <style lang="scss">
 @import "../style/app-variables.scss";
 .base-table {
+  i {
+    padding: 0 4px;
+  }
   background-color: $table-body;
   margin: 5px 0;
   .el-table th {

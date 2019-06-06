@@ -114,7 +114,7 @@ export default {
     .el-dialog__title {
       color: $font-white;
       font-weight: bold;
-      letter-spacing: 10px;
+      letter-spacing: 2px;
     }
     .el-dialog__headerbtn .el-dialog__close {
       color: $font-white;
@@ -130,6 +130,9 @@ export default {
   }
   .el-dialog__body {
     padding: 15px 25px 5px;
+  }
+  .el-dialog__footer {
+    padding: 0 10px;
   }
 }
 </style>
