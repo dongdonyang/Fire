@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <iframe
-      src="http://datav.aliyuncs.com/share/e214a032c94d2015887de85f1588ab0e"
-      frameborder="0"
-      name="demo"
-      height="100%"
-      width="99%"
-    ></iframe>
+  <div class="unit-map">
+    <div id="container"></div>
+    <div>
+      <div>单位名称</div>
+      <div>互联网单位类型分布</div>
+    </div>
   </div>
 </template>
 
@@ -38,8 +36,36 @@ export default {
   // Todo: HTML 渲染前
   created: function() {},
   // Todo: HTML渲染后
-  mounted: function() {},
+  mounted: function() {
+    this.newMap();
+  },
   // Todo: 方法
-  methods: {}
+  methods: {
+    // todo 初始化地图
+    newMap() {
+      let map = new AMap.Map("container", {
+        resizeEnable: true, //是否监控地图容器尺寸变化
+        zoom: 11, //初始化地图层级
+        mapStyle: "amap://styles/darkblue"
+      });
+    }
+  }
 };
 </script>
+
+<style lang="scss">
+.unit-map {
+  display: flex;
+  & > :first-child {
+    flex: 5 0 auto;
+  }
+  & > :last-child {
+    flex: 1 0 auto;
+    & > :first-child,
+    & > :last-child {
+      min-height: 50%;
+      padding: 15px;
+    }
+  }
+}
+</style>

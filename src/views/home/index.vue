@@ -66,6 +66,7 @@ export default {
   display: flex;
   flex-direction: column;
   &-content {
+    margin-top: 5px;
     flex: 2 0 auto;
     display: flex;
     & > :last-child {

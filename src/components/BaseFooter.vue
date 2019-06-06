@@ -1,6 +1,8 @@
 <template>
   <div class="base-footer">
-    <img src="../assets/logo.png" />
+    <a @click="open" href="">
+      <img src="../assets/logo.png" />
+    </a>
   </div>
 </template>
 
@@ -34,7 +36,12 @@ export default {
   // Todo: HTML渲染后
   mounted: function() {},
   // Todo: 方法
-  methods: {}
+  methods: {
+    open() {
+      window.location.href =
+        "http://datav.aliyuncs.com/share/68bee6533da70e1bbe008b60839f2ba3";
+    }
+  }
 };
 </script>
 <style lang="scss">

@@ -2,25 +2,24 @@
   <div class="base-header">
     <div></div>
 
-    <div>城市智慧消防一体化工作台</div>
+    <div>
+      <span>城市智慧消防一体化工作台</span>
+      <div class="base-header-tit"></div>
+    </div>
 
     <!--    todo 操作按钮-->
     <div class="base-header-but">
-      <el-button type="text" icon="el-icon-user">{{
-        $store.state.userInfo.deptName
-      }}</el-button>
-      <el-button
-        @click="getFire"
-        class="base-header-two"
-        type="text"
-        icon="el-icon-s-tools"
-      ></el-button>
+      <el-button type="text">
+        <img src="../assets/top_img_03.png" />
+        {{ $store.state.userInfo.deptName }}</el-button
+      >
+      <el-button @click="getFire" class="base-header-two" type="text">
+        <img src="../assets/set.png" />
+      </el-button>
       <!--      todo 退出-->
-      <el-button
-        @click="logOut"
-        type="text"
-        icon="el-icon-switch-button"
-      ></el-button>
+      <el-button @click="logOut" type="text">
+        <img src="../assets/top_img_04.png" />
+      </el-button>
     </div>
 
     <!--  todo 设置弹窗-->
@@ -166,7 +165,7 @@ export default {
 <style lang="scss">
 @import "../style/app-variables";
 .base-header {
-  min-height: 50px; // 为了兼容360浏览器而设置的一个固定高度、否则会被挤压
+  min-height: 75px; // 为了兼容360浏览器而设置的一个固定高度、否则会被挤压
   display: flex;
   justify-content: space-between;
   padding: 0 10px;
@@ -176,19 +175,33 @@ export default {
     font-size: 18px;
   }
   & > :nth-child(2) {
-    font-size: 20px;
+    text-align: center;
+    font-size: 22px;
   }
   & > :nth-child(1),// 左右两边的固定宽度，为了让中间内容居中
   &-but {
-    min-width: 183px;
-    text-align: right;
+    min-width: 200px;
+    text-align: center;
+    /*  针对but*/
+    & > :nth-child(2) {
+      padding: 0 5px;
+    }
+  }
+  &-tit {
+    width: 600px;
+    height: 45px;
+    opacity: 0.5;
+    background-image: url("../assets/title2.gif");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
   }
   &-form {
     .el-form-item__label {
       line-height: 20px;
     }
     .el-form-item {
-      padding: 5px 0;
+      padding: 10px 0;
       margin-bottom: 5px;
       border-bottom: 1.2px solid $input-back;
     }

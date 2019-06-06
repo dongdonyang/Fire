@@ -156,12 +156,12 @@ export default {
           label: "邀请码"
         },
         {
-          width: "125px",
+          width: "140px",
           label: "操作"
         }
       ],
       page: {
-        MaxResultCount: 20, // 查询当前页面的数量
+        MaxResultCount: 10, // 查询当前页面的数量
         total: 0,
         SkipCount: 0, // 跳过的查询的数量
         current: 1 // 当前页面
