@@ -58,11 +58,15 @@ export default {
   display: flex;
   & > :first-child {
     flex: 5 0 auto;
+    border: 2px solid red;
+    margin-right: 5px;
   }
   & > :last-child {
     flex: 1 0 auto;
     & > :first-child,
     & > :last-child {
+      border: 2px solid red;
+      box-sizing: border-box;
       min-height: 50%;
       padding: 15px;
     }
