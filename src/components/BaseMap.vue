@@ -1,16 +1,18 @@
 <template>
-  <div>
-    <el-autocomplete
-      style="width: 80%"
-      size="small"
-      v-model="keyWord"
-      :fetch-suggestions="searchKey"
-      @select="handleSelect"
-      placeholder="请输入地址信息"
-    ></el-autocomplete>
-    <el-button style="float: right" size="small" @click="savePositon"
-      >确定</el-button
-    >
+  <div class="base-map">
+    <div>
+      <el-autocomplete
+        style="width: 80%"
+        size="small"
+        v-model="keyWord"
+        :fetch-suggestions="searchKey"
+        @select="handleSelect"
+        placeholder="请输入地址信息"
+      ></el-autocomplete>
+      <el-button style="float: right" size="small" @click="savePositon"
+        >确定</el-button
+      >
+    </div>
     <div id="panel"></div>
     <div style="height:500px" id="container"></div>
   </div>
@@ -149,7 +151,12 @@ export default {
   }
 };
 </script>
-<style>
+<style lang="scss">
+.base-map {
+  & > :first-child {
+    margin-bottom: 10px;
+  }
+}
 #panel {
   z-index: 10;
   position: absolute;
