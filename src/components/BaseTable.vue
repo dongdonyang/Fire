@@ -226,6 +226,10 @@ export default {
 <style lang="scss">
 @import "../style/app-variables.scss";
 .base-table {
+  .el-table th.is-leaf,
+  .el-table td {
+    border-bottom-width: 0;
+  }
   i {
     padding: 0 4px;
   }

@@ -16,6 +16,10 @@
       <el-button @click="getFire" class="base-header-two" type="text">
         <img src="../assets/set.png" alt="" />
       </el-button>
+      <!--      todo 链接-->
+      <el-button type="text">
+        <img src="../assets/links.png" alt="" />
+      </el-button>
       <!--      todo 退出-->
       <el-button @click="logOut" type="text">
         <img src="../assets/top_img_04.png" alt="" />

@@ -9,10 +9,15 @@
             >{{ unitInfo.contractName }} {{ unitInfo.contractPhone }}
           </el-form-item>
           <el-form-item label-width="0px">
-            <base-table
-              :column-list="tableList"
-              :table-data="tableData"
-            ></base-table>
+            <el-table
+              class="unit-map-table"
+              :data="tableData"
+              style="width: 100%"
+            >
+              <el-table-column prop="name" label="数据类型"> </el-table-column>
+              <el-table-column prop="value" label="最近30天记录">
+              </el-table-column>
+            </el-table>
           </el-form-item>
         </el-form>
       </div>
@@ -243,6 +248,32 @@ export default {
     }
     .el-form-item {
       margin-bottom: 10px;
+    }
+  }
+  .el-table th.is-leaf,
+  .el-table td {
+    border-bottom-width: 0;
+  }
+  /*todo hover*/
+  .el-table--enable-row-hover .el-table__body tr:hover > td {
+    background-color: $table-header !important;
+  }
+  .el-table th {
+    line-height: 20px;
+    background-color: $table-header;
+    color: $font-white;
+  }
+  &-table {
+    background-color: $table-body;
+    margin: 5px 0;
+    tbody {
+      color: $font-white;
+      & > :nth-child(2n) {
+        background-color: $table-body;
+      }
+      & > :nth-child(2n + 1) {
+        background-color: $table-main;
+      }
     }
   }
 }

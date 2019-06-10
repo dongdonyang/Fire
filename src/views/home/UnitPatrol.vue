@@ -202,6 +202,16 @@ export default {
 @import "../../style/app-variables";
 .unit-patrol {
   padding-top: 5px;
+  display: flex;
+  flex-direction: column;
+  & > :last-child {
+    flex: 2 0 auto;
+    display: flex;
+    & > :first-child,
+    & > :nth-child(2) {
+      flex: 2 0 auto;
+    }
+  }
   &-tab {
     height: 100%;
     display: flex;
