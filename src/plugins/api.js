@@ -11,6 +11,11 @@ const API = {
   InitSetting: "/api/services/app/FireSetting/InitSetting", //设置初始化
 
   //    todo 防火单位模块
+  // todo 防火单位地图
+  GET_BREATHING_BUBBLE: "/api/services/app/BigScreen/GetBreathingBubble", // 首页：地图呼吸气泡层
+  GET_FIRE_UNIT_DATA_GRID: "/api/services/app/BigScreen/GetFireUnitDataGrid", // 防火单位：单位数据表格
+  GET_FIRE_UNIT_TYPE_HISTOGRAM:
+    "/api/services/app/BigScreen/GetFireUnitTypeHistogram", // 防火单位：类型柱状图
   GET_AREAS_CHENGHUA: "/api/services/app/Area/GetAreasChenghua", //查询成华区子级区域数组
   GET_FIRE_UNIT_LIST_EXCEL: "/api/services/app/FireUnit/GetFireUnitListExcel", //（所有防火单位）导出防火单位列表excel
   GET_FIREALARM_LIST_EXCEL:
