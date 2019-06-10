@@ -1,6 +1,8 @@
 <template>
   <div class="unit-map">
+    <!--    TODO 地图载体-->
     <div id="container"></div>
+    <!--    todo 右侧信息栏-->
     <div>
       <div>
         <el-form label-width="68px" class="unit-map-form">

@@ -226,6 +226,7 @@ export default {
 <style lang="scss">
 @import "../style/app-variables.scss";
 .base-table {
+  /* 去掉行之间的线条*/
   .el-table th.is-leaf,
   .el-table td {
     border-bottom-width: 0;

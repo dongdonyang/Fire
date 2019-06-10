@@ -1,5 +1,8 @@
 <template>
-  <div>消防站地图</div>
+  <div>
+    <!--    todo 地图载体-->
+    <div id="fireHouse"></div>
+  </div>
 </template>
 
 <script>
@@ -21,7 +24,9 @@ export default {
   props: {},
   // Todo: 双向绑定的数据
   data() {
-    return {};
+    return {
+      map: Object
+    };
   },
   // Todo: 计算属性
   computed: {},
@@ -30,8 +35,26 @@ export default {
   // Todo: HTML 渲染前
   created: function() {},
   // Todo: HTML渲染后
-  mounted: function() {},
+  mounted: function() {
+    this.newMap();
+  },
   // Todo: 方法
-  methods: {}
+  methods: {
+    // todo 初始化地图
+    newMap() {
+      this.map = new AMap.Map("fireHouse", {
+        resizeEnable: true, //是否监控地图容器尺寸变化
+        zoom: 11, //初始化地图层级
+        mapStyle: "amap://styles/darkblue"
+      });
+    }
+  }
 };
 </script>
+
+<style lang="scss">
+#fireHouse {
+  height: 100%;
+  width: 100%;
+}
+</style>
