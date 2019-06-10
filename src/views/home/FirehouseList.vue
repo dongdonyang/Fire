@@ -104,7 +104,7 @@
           <span>{{ form.address }}</span>
           <el-button type="text" @click="openMap">
             <img alt="" src="../../assets/positioning_img.png" />
-            <span>地图定位</span>
+            <span v-show="!form.address">地图定位</span>
           </el-button>
         </el-form-item>
       </el-form>

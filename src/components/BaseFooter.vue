@@ -1,7 +1,7 @@
 <template>
   <div class="base-footer">
-    <a @click="open" href="">
-      <img src="../assets/logo.png" />
+    <a :href="url">
+      <img src="../assets/logo.png" alt="" />
     </a>
   </div>
 </template>
@@ -25,7 +25,9 @@ export default {
   props: {},
   // Todo: 双向绑定的数据
   data() {
-    return {};
+    return {
+      url: "http://datav.aliyuncs.com/share/68bee6533da70e1bbe008b60839f2ba3"
+    };
   },
   // Todo: 计算属性
   computed: {},
@@ -36,12 +38,7 @@ export default {
   // Todo: HTML渲染后
   mounted: function() {},
   // Todo: 方法
-  methods: {
-    open() {
-      window.location.href =
-        "http://datav.aliyuncs.com/share/68bee6533da70e1bbe008b60839f2ba3";
-    }
-  }
+  methods: {}
 };
 </script>
 <style lang="scss">

@@ -83,17 +83,10 @@
         <span>{{ slotValue.fireUnitName }}</span>
         <span style="float: right">总数量：{{ slotPage.total }}</span>
       </div>
-      <el-form>
-        <el-form-item v-for="(item, index) in partTableData" :key="index">
-          <div>
-            时间：<span>{{ item.time }}</span>
-          </div>
-          <div>
-            事件：<span>{{ item.content }}</span>
-          </div>
-        </el-form-item>
-      </el-form>
-      <!--        分页-->
+      <base-table
+        :column-list="detailTableList"
+        :table-data="partTableData"
+      ></base-table>
       <base-page
         v-bind:prop-pag.sync="slotPage"
         @currentChange="slotDetail"
@@ -191,7 +184,7 @@ export default {
       partTableList: [
         {
           prop: "name",
-          label: "网关地址"
+          label: "报警部件"
         },
         {
           prop: "time",
@@ -200,6 +193,21 @@ export default {
         {
           prop: "count",
           label: "最近30天报警次数"
+        }
+      ],
+      detailTableData: [],
+      detailTableList: [
+        {
+          prop: "content",
+          label: "报警部件"
+        },
+        {
+          prop: "location",
+          label: "报警地点"
+        },
+        {
+          prop: "time",
+          label: "最近报警时间"
         }
       ],
       page: {

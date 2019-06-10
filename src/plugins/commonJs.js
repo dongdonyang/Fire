@@ -3,10 +3,10 @@
  */
 import { MessageBox } from "element-ui";
 // todo 删除数据前的确认弹窗
-export function isDelete(val = "该数据") {
-  let mes = `<p>确定要删除<strong style="color: #E6A23C; margin: 0 6px;">${val}</strong>吗?</p>`;
+export function isDelete(val = "您确定删除该数据吗？") {
+  let mes = `<p>${val}</p>`;
   let pro = MessageBox.confirm(mes, "提示", {
-    confirmButtonText: "删除",
+    confirmButtonText: "确定",
     center: true,
     dangerouslyUseHTMLString: true
   });

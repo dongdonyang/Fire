@@ -89,7 +89,7 @@
           <span>{{ form.address }}</span>
           <el-button type="text" @click="openMap">
             <img alt="" src="../../assets/positioning_img.png" />
-            <span>地图定位</span>
+            <span v-show="!form.address">地图定位</span>
           </el-button>
         </el-form-item>
       </el-form>
@@ -99,18 +99,12 @@
     <base-dialog ref="alarmRecord" :is-show-footer="false" class="alarm-record">
       <div>
         <span>[成华区服务中心]消火栓报警监控</span>
-        <span>总次数：{{ recordForm.length }}</span>
+        <span>总次数：{{ recordPage.total }}</span>
       </div>
-      <el-form>
-        <el-form-item v-for="(item, index) in recordForm" :key="index">
-          <div>
-            时间：<span>{{ item.creationTime }}</span>
-          </div>
-          <div>
-            事件：<span>{{ item.title }}</span>
-          </div>
-        </el-form-item>
-      </el-form>
+      <base-table
+        :column-list="detailTableList"
+        :table-data="partTableData"
+      ></base-table>
       <!--        page-->
       <base-page
         v-bind:prop-pag.sync="recordPage"
@@ -199,6 +193,17 @@ export default {
           label: "操作"
         }
       ],
+      detailTableList: [
+        {
+          prop: "creationTime",
+          label: "时间"
+        },
+        {
+          prop: "title",
+          label: "事件"
+        }
+      ],
+      partTableData: [],
       recordPage: {
         MaxResultCount: 10, // 查询当前页面的数量
         total: 0,
@@ -289,7 +294,7 @@ export default {
         })
         .then(res => {
           if (res.success) {
-            this.recordForm = res.result.items;
+            this.partTableData = res.result.items;
             this.recordPage.total = res.result.totalCount;
           }
         });

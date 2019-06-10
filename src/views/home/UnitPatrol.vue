@@ -1,6 +1,6 @@
 <template>
   <el-tabs class="unit-patrol" v-model="tabValue" type="card">
-    <el-tab-pane label="巡逻记录" name="first">
+    <el-tab-pane label="巡查记录" name="first">
       <div class="unit-patrol-tab">
         <!--    todo 筛选-->
         <div class="unit-patrol-header">
@@ -18,7 +18,7 @@
             </el-input>
           </div>
           <el-checkbox v-model="checked"
-            >超过7天没有巡查的数量：{{ noWork7DayCount }}</el-checkbox
+            >巡查记录缺失超过7天的单位数量：{{ noWork7DayCount }}</el-checkbox
           >
         </div>
 
@@ -60,7 +60,7 @@
           </div>
           <div>
             <el-checkbox v-model="checked"
-              >超过1天没有巡查的数量：{{ noWork7DayCount }}</el-checkbox
+              >值班记录缺失超过1天的单位数量：{{ noWork7DayCount }}</el-checkbox
             >
           </div>
         </div>
@@ -159,6 +159,7 @@ export default {
     },
     // 监听tabs选项
     tabValue: function(value) {
+      this.checked = false;
       this.page.current = 1;
       this.url = URL_ADDRESS[value][this.checked];
       this.getList();
@@ -188,6 +189,9 @@ export default {
             this.tableData = items;
             this.page.total = totalCount;
           }
+        })
+        .catch(() => {
+          this.tableData = [];
         });
     }
   }

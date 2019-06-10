@@ -222,7 +222,7 @@ export default {
       border: 2px solid $table-main;
       box-sizing: border-box;
       min-height: 50%;
-      padding: 15px;
+      padding: 5px;
     }
   }
   &-form {

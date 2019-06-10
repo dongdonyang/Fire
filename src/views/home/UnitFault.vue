@@ -78,19 +78,10 @@
         <div>{{ slotVal.fireUnitName }}</div>
         <div>总数：{{ slotPage.total }}</div>
       </div>
-      <el-form>
-        <el-form-item v-for="(item, index) in slotForm" :key="index">
-          <div>
-            设施类型：<span>{{ item.detectorTypeName }}</span>
-          </div>
-          <div>
-            故障描述：<span>{{ item.content }}</span>
-          </div>
-          <div>
-            故障时间：<span>{{ item.time }}</span>
-          </div>
-        </el-form-item>
-      </el-form>
+      <base-table
+        :column-list="detailTableList"
+        :table-data="partTableData"
+      ></base-table>
       <!--      page-->
       <base-page
         v-bind:prop-pag.sync="slotPage"
@@ -130,6 +121,21 @@ export default {
       alarmStatusOpt: [],
       alarmTypeOpt: [],
       tableData: [],
+      partTableData: [],
+      detailTableList: [
+        {
+          prop: "detectorTypeName",
+          label: "设施类型"
+        },
+        {
+          prop: "content",
+          label: "故障描述"
+        },
+        {
+          prop: "time",
+          label: "故障时间"
+        }
+      ],
       tableList: [
         {
           prop: "fireUnitName",
@@ -137,12 +143,13 @@ export default {
         },
         {
           prop: "faultCount",
-          label: "发生故障数量"
+          label: "发生故障数量",
+          unit: "个"
         },
         {
           prop: "processedCount",
           label: "处理故障数量",
-          unit: "次"
+          unit: "个"
         },
         {
           prop: "pendingCount",
@@ -215,7 +222,7 @@ export default {
         })
         .then(res => {
           if (res.success) {
-            this.slotForm = res.result.items;
+            this.partTableData = res.result.items;
             this.slotPage.total = res.result.totalCount;
           }
         });

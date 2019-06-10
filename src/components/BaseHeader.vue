@@ -10,15 +10,15 @@
     <!--    todo 操作按钮-->
     <div class="base-header-but">
       <el-button type="text">
-        <img src="../assets/top_img_03.png" />
+        <img src="../assets/top_img_03.png" alt="" />
         {{ $store.state.userInfo.deptName }}</el-button
       >
       <el-button @click="getFire" class="base-header-two" type="text">
-        <img src="../assets/set.png" />
+        <img src="../assets/set.png" alt="" />
       </el-button>
       <!--      todo 退出-->
       <el-button @click="logOut" type="text">
-        <img src="../assets/top_img_04.png" />
+        <img src="../assets/top_img_04.png" alt="" />
       </el-button>
     </div>
 
@@ -66,6 +66,8 @@
 
 <script>
 // Todo VUE代码风格、拒绝硬编码！
+import { isDelete } from "../plugins/commonJs";
+
 /**
  *  作者：                                             时间：
  *  1,常量从js文件引入，不要定义魔术变量
@@ -146,18 +148,18 @@ export default {
     },
     //  todo 退出
     logOut() {
-      this.$axios
-        .post(this.$api.USER_LOG_OUT, {
-          contentType: "application/json"
+      isDelete("您确定注销当前用户登陆吗？")
+        .then(() => {
+          this.$axios.post(this.$api.USER_LOG_OUT).then(res => {
+            if (res.success) {
+              this.$message.success("退出成功！");
+              this.$store.commit("setUserInfo");
+              sessionStorage.clear();
+              this.$router.push("/");
+            }
+          });
         })
-        .then(res => {
-          if (res.success) {
-            this.$message.success("退出成功！");
-            this.$store.commit("setUserInfo");
-            sessionStorage.clear();
-            this.$router.push("/");
-          }
-        });
+        .catch(() => {});
     }
   }
 };

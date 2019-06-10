@@ -54,9 +54,14 @@ html, body {
 
 //修改删除提示框样式
 .el-message-box{
+  .el-message-box__headerbtn{
+    display: none;
+  }
   background-color: $dialog-main !important;
   border-color: transparent !important;
   .el-message-box__header{
+    padding: 20px;
+    padding-top: 0;
     background-color: $dialog-header !important;
     .el-message-box__title{
       color:  $font-white;
@@ -67,10 +72,8 @@ html, body {
     color: $font-white !important;
   }
   .el-message-box__btns{
-    & > :last-child{
-      background-color: $table-header;
-      border-color: transparent;
-    }
+    display: flex;
+    justify-content: space-around;
   }
 }
 
@@ -108,7 +111,6 @@ html, body {
     }
     // form
     & > :nth-child(2){
-      padding: 10px;
       .el-form-item__content{
         line-height: 25px;
         div{
@@ -132,6 +134,6 @@ html, body {
 }
 
 //复选框未选中时候，文字的颜色
-.el-checkbox__label{
-  color: #409EFF;
+.el-checkbox__label,.el-checkbox__input.is-checked + .el-checkbox__label{
+  color: #F56C6C !important;
 }

@@ -355,6 +355,14 @@ export default {
       border-bottom: 1.2px solid $input-back;
     }
   }
+  &-tab-form {
+    & > :nth-child(5) {
+      .el-form-item__label {
+        color: $table-header !important;
+        font-weight: bold;
+      }
+    }
+  }
   &-tab-form-detail {
     & > div {
       margin-bottom: 0;
