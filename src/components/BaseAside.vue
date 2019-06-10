@@ -107,10 +107,10 @@ export default {
           title: "微型消防站",
           icon: require("../assets/fireHouse.svg"),
           child: [
-            {
-              url: "FirehouseMap",
-              name: "地图展示"
-            },
+            // {
+            //   url: "FirehouseMap",
+            //   name: "地图展示"
+            // },
             {
               url: "FirehouseList",
               name: "站点列表"
