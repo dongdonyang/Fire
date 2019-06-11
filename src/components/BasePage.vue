@@ -46,8 +46,7 @@ export default {
   // Todo: 数据监听
   watch: {},
   // Todo: HTML 渲染前
-  created: function() {
-  },
+  created: function() {},
   // Todo: HTML渲染后
   mounted: function() {},
   // Todo: 方法

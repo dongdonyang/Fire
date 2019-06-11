@@ -12,18 +12,12 @@ import "./plugins/BaseComponent"; // 引入全局注册组件
 Vue.prototype.$api = api;
 Vue.prototype.$axios = axios;
 Vue.prototype.$echarts = echarts;
+Vue.prototype.$cookies = Cookies;
 
 //todo 获取用户信息、然后存在vuex中、以供全局使用、目前根据session中的数据来判断有没有登录的，因为cookie后端设置前端获取不到
 // todo 跳过登录
-// sessionStorage.setItem(
-//   "userInfo",
-//   JSON.stringify({
-//     userId: "1",
-//     deptName: "默认用户"
-//   })
-// );
-let info = JSON.parse(sessionStorage.getItem("userInfo"));
-let tok = Cookies.get(".AspNetCore.Session");
+let info = JSON.parse(Cookies.get("userInfo"));
+let tok = Cookies.get("isLogin");
 console.log("token信息：", tok);
 console.log("用户信息：", info);
 store.commit("setUserInfo", info, tok);

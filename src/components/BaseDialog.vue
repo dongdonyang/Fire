@@ -6,6 +6,7 @@
     :fullscreen="isFull"
     :visible.sync="show"
     :width="diaWidth"
+    @close="beforeClosed"
   >
     <slot>弹窗内容</slot>
     <!--    <el-button @click="isFull = !isFull">全屏</el-button>-->
@@ -34,6 +35,7 @@
  *  6,事先定义好基础的公共组件，全局注册
  */
 
+import Vue from "vue";
 export default {
   name: "BaseDialog",
   // Todo: 组件注册
@@ -100,6 +102,11 @@ export default {
     //  todo 修改
     editInfo() {
       this.$emit("editInfo", 0);
+    },
+    //  todo 关闭弹窗前的回调
+    beforeClosed() {
+      console.log("关闭弹窗");
+      this.$emit("befClosed");
     }
   }
 };

@@ -1,5 +1,7 @@
 <template>
-  <div style=" height: 100%;display: flex; flex-direction: column; justify-content: space-between">
+  <div
+    style=" height: 100%;display: flex; flex-direction: column; justify-content: space-between"
+  >
     <el-menu
       class="base-aside"
       @select="handleSelect"

@@ -40,6 +40,7 @@
 
     <!--    todo 添加、编辑弹窗-->
     <base-dialog
+      @befClosed="$refs.form.clearValidate()"
       ref="BaseDialog"
       @submit="submit"
       @editInfo="editInfo"

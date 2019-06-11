@@ -104,7 +104,9 @@ export default {
           this.$axios.post(this.$api.USER_LOGIN, this.form).then(res => {
             if (res.result.success) {
               sessionStorage.setItem("userInfo", JSON.stringify(res.result));
-              this.$store.commit("setUserInfo", res.result);
+              this.$store.commit("setUserInfo", res.result, 1);
+              this.$cookies.set("isLogin", 1);
+              this.$cookies.set("userInfo", JSON.stringify(res.result));
               this.$router.push({
                 name: "home"
               });

@@ -157,6 +157,9 @@ export default {
 </script>
 <style lang="scss">
 .base-map {
+  .amap-info-contentContainer {
+    display: none;
+  }
   & > :first-child {
     margin-bottom: 10px;
   }

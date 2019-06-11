@@ -3,6 +3,7 @@ import Router from "vue-router";
 import Login from "./views/login/Index";
 import store from "./store";
 import { Message } from "element-ui";
+import Cookies from "js-cookie";
 
 Vue.use(Router);
 
@@ -125,8 +126,7 @@ const router = new Router({
 });
 // todo 登录判定
 router.beforeEach(function(to, from, next) {
-  console.log(to);
-  if (store.state.userInfo.userId) {
+  if (Cookies.get("isLogin")) {
     //表示登陆状态
     console.log(from, to);
     if (to.name === "login") {

@@ -9,12 +9,12 @@ export default new Vuex.Store({
   // todo this.$store.state.name;
   state: {
     userInfo: {}, // 用户登录信息
-    token: "" // 保存的登录token信息
+    token: 0 // 保存的登录token信息
   },
   // todo this.$store.commit("increment")
   mutations: {
     // 设置用户信息
-    setUserInfo(state, payload = {}, token = "") {
+    setUserInfo(state, payload = {}, token = 0) {
       state.userInfo = payload ? payload : {};
       state.token = token;
     }

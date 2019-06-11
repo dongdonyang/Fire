@@ -185,6 +185,8 @@ export default {
               this.$message.success("退出成功！");
               this.$store.commit("setUserInfo");
               sessionStorage.clear();
+              this.$cookies.remove("isLogin");
+              this.$cookies.remove("userInfo");
               this.$router.push("/");
             }
           });
