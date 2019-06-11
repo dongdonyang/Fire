@@ -1,26 +1,33 @@
 <template>
-  <el-menu
-    class="base-aside"
-    @select="handleSelect"
-    :default-active="menuValue"
-    background-color="transparent"
-    text-color="#fff"
-    active-text-color="#167fc1"
-  >
-    <el-submenu
-      v-for="(item, index) in asideList"
-      :key="index"
-      :index="item.title"
+  <div style=" height: 100%;display: flex; flex-direction: column; justify-content: space-between">
+    <el-menu
+      class="base-aside"
+      @select="handleSelect"
+      :default-active="menuValue"
+      background-color="transparent"
+      text-color="#fff"
+      active-text-color="#167fc1"
     >
-      <template slot="title">
-        <img alt="" :src="item.icon" />
-        {{ item.title }}</template
+      <el-submenu
+        v-for="(item, index) in asideList"
+        :key="index"
+        :index="item.title"
       >
-      <el-menu-item v-for="(a, b) in item.child" :key="b" :index="a.url">{{
-        a.name
-      }}</el-menu-item>
-    </el-submenu>
-  </el-menu>
+        <template slot="title">
+          <img alt="" :src="item.icon" />
+          {{ item.title }}</template
+        >
+        <el-menu-item v-for="(a, b) in item.child" :key="b" :index="a.url">{{
+          a.name
+        }}</el-menu-item>
+      </el-submenu>
+    </el-menu>
+    <div class="base-footer">
+      <a :href="url">
+        <img src="../assets/logo.png" alt="" />
+      </a>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -43,6 +50,7 @@ export default {
   // Todo: 双向绑定的数据
   data() {
     return {
+      url: "http://datav.aliyuncs.com/share/68bee6533da70e1bbe008b60839f2ba3",
       menuValue: "UnitList",
       asideList: [
         {

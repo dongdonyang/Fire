@@ -23,7 +23,7 @@ Vue.prototype.$echarts = echarts;
 //   })
 // );
 let info = JSON.parse(sessionStorage.getItem("userInfo"));
-let tok = Cookies.get("UM_distinctid");
+let tok = Cookies.get(".AspNetCore.Session");
 console.log("token信息：", tok);
 console.log("用户信息：", info);
 store.commit("setUserInfo", info, tok);

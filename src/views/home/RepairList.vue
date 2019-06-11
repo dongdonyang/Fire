@@ -281,6 +281,9 @@ export default {
     & > :last-child {
       float: right;
     }
+    img {
+      width: 20px;
+    }
     //修改text按钮样式，垂直居中
     .el-button--text {
       span {

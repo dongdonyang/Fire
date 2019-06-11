@@ -137,3 +137,8 @@ html, body {
 .el-checkbox__label,.el-checkbox__input.is-checked + .el-checkbox__label{
   color: #F56C6C !important;
 }
+
+// 给所有img标签设置一个边距，因为很多图标和文字黏在一起了，又不想一个一个设置，就打算全局统一设置
+img{
+  margin: 0 3px;
+}

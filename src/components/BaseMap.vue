@@ -9,8 +9,12 @@
         @select="handleSelect"
         placeholder="请输入地址信息"
       ></el-autocomplete>
-      <el-button style="float: right" size="small" @click="savePositon"
-        >确定</el-button
+      <el-button
+        style="float: right"
+        type="primary"
+        size="small"
+        @click="savePositon"
+        >保存</el-button
       >
     </div>
     <div id="panel"></div>

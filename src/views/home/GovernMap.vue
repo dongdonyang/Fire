@@ -1,5 +1,13 @@
 <template>
-  <div>市政府地图</div>
+  <div>
+    <iframe
+      src="http://datav.aliyuncs.com/share/d8aad440d243caa4589b7f1373ceeb9e"
+      frameborder="0"
+      name="demo"
+      height="100%"
+      width="99%"
+    ></iframe>
+  </div>
 </template>
 
 <script>

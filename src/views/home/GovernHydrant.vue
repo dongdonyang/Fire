@@ -165,24 +165,23 @@ export default {
           label: "设施编号"
         },
         {
-          prop: "areaName",
-          label: "区域"
+          prop: "address",
+          label: "地址"
         },
         {
           prop: "pressure",
-          label: "水压数据",
-          unit: "MPa"
+          label: "水压(kPa)"
         },
         {
           prop: "lastAlarmTime",
           label: "最近报警时间"
         },
-        {
-          prop: "nearbyAlarmNumber",
-          label: "最近30天报警次数",
-          slot: "nearbyAlarmNumber",
-          unit: "次"
-        },
+        // {
+        //   prop: "nearbyAlarmNumber",
+        //   label: "最近30天报警次数",
+        //   slot: "nearbyAlarmNumber",
+        //   unit: "次"
+        // },
         {
           prop: "status",
           label: "网关状态",
@@ -401,6 +400,9 @@ export default {
     justify-content: space-between;
     padding: 0 10px;
     & > :last-child {
+      img {
+        width: 20px;
+      }
       float: right;
     }
     //修改text按钮样式，垂直居中

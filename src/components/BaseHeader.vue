@@ -13,17 +13,43 @@
         <img src="../assets/top_img_03.png" alt="" />
         {{ $store.state.userInfo.deptName }}</el-button
       >
-      <el-button @click="getFire" class="base-header-two" type="text">
-        <img src="../assets/set.png" alt="" />
-      </el-button>
+      <!--      TODO 设置-->
+      <el-tooltip
+        class="item"
+        effect="dark"
+        content="设置"
+        placement="bottom-end"
+      >
+        <el-button @click="getFire" class="base-header-two" type="text">
+          <img src="../assets/set.png" alt="" />
+        </el-button>
+      </el-tooltip>
+
       <!--      todo 链接-->
-      <el-button type="text">
-        <img src="../assets/links.png" alt="" />
-      </el-button>
+      <el-tooltip
+        class="item"
+        effect="dark"
+        content="数据服务总线"
+        placement="bottom-end"
+      >
+        <el-button
+          type="text"
+          onClick="window.open('http://fd.sctsjkj.com:6080/swagger/index.html')"
+        >
+          <img src="../assets/links.png" alt="" />
+        </el-button>
+      </el-tooltip>
       <!--      todo 退出-->
-      <el-button @click="logOut" type="text">
-        <img src="../assets/top_img_04.png" alt="" />
-      </el-button>
+      <el-tooltip
+        class="item"
+        effect="dark"
+        content="退出"
+        placement="bottom-end"
+      >
+        <el-button @click="logOut" type="text">
+          <img src="../assets/top_img_04.png" alt="" />
+        </el-button>
+      </el-tooltip>
     </div>
 
     <!--  todo 设置弹窗-->
@@ -186,11 +212,14 @@ export default {
   }
   & > :nth-child(1),// 左右两边的固定宽度，为了让中间内容居中
   &-but {
-    min-width: 200px;
+    min-width: 230px;
     text-align: center;
     /*  针对but*/
-    & > :nth-child(2) {
-      padding: 0 5px;
+    & > :nth-child(1) {
+      & > span {
+        display: flex;
+        align-items: center;
+      }
     }
   }
   &-tit {

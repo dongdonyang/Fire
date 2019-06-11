@@ -11,7 +11,7 @@
         <router-view></router-view>
       </el-container>
       <!--    todo 尾部-->
-      <base-footer></base-footer>
+<!--      <base-footer></base-footer>-->
     </div>
   </el-scrollbar>
 </template>
