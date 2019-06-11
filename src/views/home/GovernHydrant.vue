@@ -50,6 +50,7 @@
 
     <!--    todo 弹窗、添加编辑-->
     <base-dialog
+      :is-show-footer="false"
       @befClosed="$refs.form.clearValidate()"
       ref="BaseDialog"
       @submit="submit"
@@ -92,6 +93,12 @@
             <img alt="" src="../../assets/positioning_img.png" />
             <span v-show="!form.address">地图定位</span>
           </el-button>
+        </el-form-item>
+        <el-form-item v-if="isDeit" label="当前水压：">
+          <span>{{ form.pressure }} kPa</span>
+        </el-form-item>
+        <el-form-item v-if="isDeit" label-width="0">
+          <div id="myLine" style="width: 500px; height: 300px"></div>
         </el-form-item>
       </el-form>
     </base-dialog>
@@ -151,6 +158,7 @@ export default {
   // Todo: 双向绑定的数据
   data() {
     return {
+      hisPress: [],
       minWaterPressure: "0.14",
       substanCount: 0, // 低于标准水压的数量
       checked: false,
@@ -350,12 +358,64 @@ export default {
         })
         .then(res => {
           if (res.success) {
+            this.$nextTick(() => {
+              this.getHisPress(id);
+            });
             this.$refs.BaseDialog.show = true;
             this.$refs.BaseDialog.title = "HYDRANT_DETAIL";
             this.form = res.result;
             this.isDeit = 1;
           }
         });
+    },
+    // todo 获取历史水压统计信息
+    getHisPress(id) {
+      this.$axios
+        .get(this.$api.GET_HYDRANT_PRESS_HISTORY, {
+          params: { id }
+        })
+        .then(res => {
+          this.hisPress = res;
+          this.setChart();
+        });
+    },
+    // todo 初始化统计图
+    setChart() {
+      let yAxisData = [],
+        seriesData = [];
+      for (let item of this.hisPress) {
+        yAxisData.push(item.x.slice(5, 10));
+        seriesData.push(item.y);
+      }
+      // 基于准备好的dom，初始化echarts实例
+      let myLine = this.$echarts.init(document.getElementById("myLine"));
+      let option = {
+        title: {
+          text: "历史水压",
+          x: "center",
+          textStyle: {
+            color: "#62a5f4"
+          }
+        },
+        color: ["#62a5f4"],
+        xAxis: {
+          type: "category",
+          boundaryGap: false,
+          data: yAxisData
+        },
+        yAxis: {
+          type: "value"
+        },
+        series: [
+          {
+            data: seriesData,
+            type: "line",
+            areaStyle: {}
+          }
+        ]
+      };
+      // 绘制图表
+      myLine.setOption(option);
     },
     //  todo 删除数据
     deleteInfo(val) {
@@ -441,7 +501,7 @@ export default {
       }
     }
     /*  定图定位四个字的样式*/
-    & > :last-child {
+    & > :nth-child(3) {
       .el-form-item__content {
         display: flex;
         align-items: center;

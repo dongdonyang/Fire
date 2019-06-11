@@ -65,6 +65,11 @@
               :key="index"
             >
               <span v-if="index === 3">{{ getName(form[item.value]) }}</span>
+              <template slot="label" v-else-if="index === 4">
+                <span style="display: flex">
+                  <img src="../../assets/book.svg">
+                  {{item.label}}</span>
+              </template>
               <span v-else>{{ form[item.value] }}</span>
             </el-form-item>
           </el-form>
@@ -359,12 +364,15 @@ export default {
     }
   }
   &-tab-form {
+    /* 法律文书单独样式*/
     & > :nth-child(5) {
       .el-form-item__label {
-        color: $table-header !important;
         font-weight: bold;
       }
     }
+    /*& > :nth-child(n+7){*/
+    /*  background-color: red;*/
+    /*}*/
   }
   &-tab-form-detail {
     & > div {

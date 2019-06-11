@@ -171,7 +171,7 @@
     <!--    todo 弹窗-报警记录-->
     <base-dialog
       ref="getTimeDetail"
-      dia-width="650px"
+      dia-width="700px"
       :is-show-footer="false"
       class="alarm-record"
     >
@@ -257,15 +257,17 @@ export default {
       detailTableList: [
         {
           prop: "content",
-          label: "报警部件"
+          label: "事件",
+          width: "280"
         },
         {
           prop: "location",
-          label: "报警地点"
+          label: "地点",
+          width: "280"
         },
         {
           prop: "time",
-          label: "最近报警时间"
+          label: "时间"
         }
       ],
       slotValue: {},

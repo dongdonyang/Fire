@@ -131,7 +131,7 @@ router.beforeEach(function(to, from, next) {
     console.log(from, to);
     if (to.name === "login") {
       next("/home");
-      Message.info("你已登录、请勿重复登录！");
+      // Message.info("你已登录、请勿重复登录！");
     } else {
       next();
     }
