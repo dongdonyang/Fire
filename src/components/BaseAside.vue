@@ -3,6 +3,7 @@
     style=" height: 100%;display: flex; flex-direction: column; justify-content: space-between"
   >
     <el-menu
+      :unique-opened="true"
       class="base-aside"
       @select="handleSelect"
       :default-active="menuValue"
@@ -201,11 +202,17 @@ export default {
     transition: all 1s ease 0s;
     background-color: $input-back !important;
   }
+  .el-menu,
+  .el-menu--inline {
+    background-color: $input-back !important;
+  }
   /*  todo 已打开*/
+  /*
   .is-opened {
     .el-submenu__title {
       background-color: $input-back !important;
     }
   }
+   */
 }
 </style>

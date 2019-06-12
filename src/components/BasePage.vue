@@ -64,6 +64,7 @@ export default {
 <style lang="scss">
 @import "../style/app-variables";
 .base-page {
+  background-color: $table-body;
   text-align: center;
   padding: 5px 0;
   /*todo 总数*/

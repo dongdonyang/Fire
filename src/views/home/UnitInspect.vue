@@ -67,8 +67,9 @@
               <span v-if="index === 3">{{ getName(form[item.value]) }}</span>
               <template slot="label" v-else-if="index === 4">
                 <span style="display: flex">
-                  <img src="../../assets/book.svg">
-                  {{item.label}}</span>
+                  <img src="../../assets/book.svg" />
+                  {{ item.label }}</span
+                >
               </template>
               <span v-else>{{ form[item.value] }}</span>
             </el-form-item>
@@ -332,7 +333,11 @@ export default {
     justify-content: space-between;
     padding: 0 10px;
     & > :first-child {
-      display: flex;
+      & > :first-child {
+        .el-form-item__content {
+          padding-top: 5px;
+        }
+      }
     }
     img {
       width: 20px;

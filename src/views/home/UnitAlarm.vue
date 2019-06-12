@@ -94,7 +94,12 @@
     </base-dialog>
 
     <!--    todo 弹窗-报警部件-->
-    <base-dialog ref="getPartsDetail" dia-width="650px" :is-show-footer="false">
+    <base-dialog
+      ref="getPartsDetail"
+      dia-width="650px"
+      class="alarm-record"
+      :is-show-footer="false"
+    >
       <div>
         <span>{{ slotValue.fireUnitName }}</span>
         <span style="float: right">总数量：{{ slotPage.total }}</span>
@@ -319,7 +324,13 @@ export default {
     justify-content: space-between;
     padding: 0 10px;
     & > :first-child {
-      display: flex;
+      form {
+        & > :first-child {
+          .el-form-item__content {
+            padding-top: 5px;
+          }
+        }
+      }
     }
     img {
       width: 20px;

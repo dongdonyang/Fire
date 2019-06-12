@@ -17,9 +17,11 @@
               ></template>
             </el-input>
           </div>
+          <div>
           <el-checkbox v-model="checked"
             >巡查记录缺失超过7天的单位数量：{{ noWork7DayCount }}</el-checkbox
           >
+          </div>
         </div>
 
         <!--    todo table 列表-->
