@@ -3,7 +3,7 @@
     <div></div>
 
     <div>
-      <span>城市智慧消防一体化工作台</span>
+      <div>城市智慧消防一体化工作台</div>
       <div class="base-header-tit"></div>
     </div>
 
@@ -211,6 +211,9 @@ export default {
   & > :nth-child(2) {
     text-align: center;
     font-size: 22px;
+    & > :nth-child(1){
+      padding-top: 20px;
+    }
   }
   & > :nth-child(1),// 左右两边的固定宽度，为了让中间内容居中
   &-but {

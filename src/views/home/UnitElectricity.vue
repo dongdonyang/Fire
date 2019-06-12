@@ -451,6 +451,15 @@ export default {
     align-items: center;
     justify-content: space-between;
     padding: 0 10px;
+    & > :first-child {
+      form {
+        & > :first-child {
+          .el-form-item__content {
+            margin-top: 5px;
+          }
+        }
+      }
+    }
     & > :last-child {
       float: right;
       display: flex;

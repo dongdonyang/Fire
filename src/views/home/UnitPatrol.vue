@@ -224,7 +224,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 10px;
+    padding: 0 10px 5px 10px;
     & > :last-child {
       float: right;
       display: flex;

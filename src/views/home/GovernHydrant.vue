@@ -50,7 +50,7 @@
 
     <!--    todo 弹窗、添加编辑-->
     <base-dialog
-      :is-show-footer="false"
+      :is-show-footer="isShowFooter[isDeit]"
       @befClosed="$refs.form.clearValidate()"
       ref="BaseDialog"
       @submit="submit"
@@ -158,6 +158,10 @@ export default {
   // Todo: 双向绑定的数据
   data() {
     return {
+      isShowFooter: {
+        0: true,
+        1: false
+      }, // 新增需要显示按钮，详情不需要显示
       hisPress: [],
       minWaterPressure: "0.14",
       substanCount: 0, // 低于标准水压的数量

@@ -229,6 +229,7 @@ export default {
     },
     //  todo 获取设施故障监控list
     getList() {
+      this.page.SkipCount = (this.page.current - 1) * this.page.MaxResultCount;
       this.$axios
         .get(this.$api.GET_FIRE_UNIT_FAULT_LIST, {
           params: this.page

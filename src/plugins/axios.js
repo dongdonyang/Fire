@@ -14,9 +14,18 @@ const service = axios.create({
 service.interceptors.request.use(
   function(config) {
     NProgress.start();
-    if (config.params) {
+    let value = config.params;
+    if (value) {
       // config.headers["Cookie"] = store.state.token;
-      config.params.UserId = store.state.userInfo.userId; // 给所有请求加上用户id
+      value.UserId = store.state.userInfo.userId; // 给所有请求加上用户id
+      //  todo 删除对象中为空的属性，以防接口报错
+      if (value instanceof Object) {
+        for (let item in value) {
+          if (value[item] === "") {
+            delete value[item];
+          }
+        }
+      }
     }
     return config;
   },

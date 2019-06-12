@@ -235,7 +235,6 @@ export default {
     padding: 0 4px;
   }
   background-color: $table-body;
-  margin: 5px 0;
   .el-table th {
     background-color: $table-header;
     color: $font-white;
