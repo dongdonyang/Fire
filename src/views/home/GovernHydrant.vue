@@ -32,7 +32,7 @@
       <el-checkbox v-model="checked"
         >水压标准范围：>={{
           minWaterPressure
-        }}MPa，当前水压低于标准的消火栓数量：{{ substanCount }}</el-checkbox
+        }}kPa，当前水压低于标准的消火栓数量：{{ substanCount }}</el-checkbox
       >
     </div>
 
@@ -479,12 +479,8 @@ export default {
     }
   }
   & > :nth-child(2) {
-    padding: 0 10px;
+    padding: 0 10px 10px 10px;
     text-align: right;
-    color: rgb(255, 208, 75);
-    a {
-      color: red;
-    }
   }
   & > :nth-child(3) {
     flex: 2 0 auto;

@@ -8,7 +8,13 @@
           size="small"
           placeholder="请输入单位名称"
           v-model="page.Name"
-          @change="getList"
+          @change="
+            $store.dispatch({
+              type: 'setPage',
+              page: page,
+              fun: getList
+            })
+          "
         >
           <template slot="append"
             ><i class="el-icon-search"></i

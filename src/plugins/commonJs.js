@@ -14,9 +14,3 @@ export function isDelete(val = "您确定删除该数据吗？") {
   return pro;
 }
 
-// todo 全局回调函数，主要用来筛选功能，传入page对象，和getlist函数，然后对page的所有操作在这进行
-// export function setPage(page={},fun=function () {
-//
-// }) {
-//
-// }

@@ -90,6 +90,12 @@ export default new Vuex.Store({
         place.lng
       },${place.lat}`;
       return axios.get(url);
+    },
+
+    // todo 全局回调函数，主要用来筛选功能，传入page对象，和getlist函数，然后对page的所有操作在这进行,想直接在html中调用，卸载store中
+    setPage(context, page = {}) {
+      page.page.current = 1;
+      page.fun();
     }
   }
 });

@@ -226,7 +226,7 @@ export default {
 <style lang="scss">
 @import "../style/app-variables.scss";
 .base-table {
-  /* 去掉行之间的线条*/
+  /*TODO 去掉行之间的线条*/
   /*.el-table th.is-leaf,*/
   /*.el-table td {*/
   /*  border-bottom-width: 0;*/
@@ -235,15 +235,20 @@ export default {
     padding: 0 4px;
   }
   background-color: $table-body;
+  /* TODO 设置表头样式*/
   .el-table th {
     background-color: $table-header;
     color: $font-white;
   }
 
+  /*TODO table body*/
   tbody {
-    color: $font-white;
-    & > tr:hover {
+    /*todo 设置行高,因为有按钮把某些表行撑高了，为了统一所有表的行高*/
+    .el-table,
+    .cell {
+      line-height: 40px;
     }
+    color: $font-white;
     & > :nth-child(2n) {
       background-color: $table-body;
     }
