@@ -9,7 +9,13 @@
             size="small"
             placeholder="请输入防火单位"
             v-model="page.FireUnitName"
-            @change="getList"
+            @change="
+              $store.dispatch({
+                type: 'setPage',
+                page: page,
+                fun: getList
+              })
+            "
           >
             <template slot="append"
               ><i class="el-icon-search"></i
@@ -21,7 +27,13 @@
             size="small"
             clearable
             v-model="page.CheckResult"
-            @change="getList"
+            @change="
+              $store.dispatch({
+                type: 'setPage',
+                page: page,
+                fun: getList
+              })
+            "
             placeholder="全部"
           >
             <el-option
@@ -270,10 +282,6 @@ export default {
       });
       return name.label ? name.label : "";
     },
-    // todo 导出EXCEL
-    exportFile() {
-      this.$axios.get(this.$api.GET_FIRE_UNIT_LIST_EXCEL);
-    },
     // todo 查看详情
     getDetail(id) {
       Promise.all([
@@ -285,16 +293,16 @@ export default {
         })
       ]).then(([res1, res2]) => {
         if (res1.success && res2.success) {
+          let b = this.$refs.BaseDialog;
           this.form = res1.result;
           this.formDetail = res2.result;
-          this.$refs.BaseDialog.title = "UNIT_INSPECT_DETAIL";
-          this.$refs.BaseDialog.show = true;
+          b.title = "UNIT_INSPECT_DETAIL";
+          b.show = true;
         }
       });
     },
     //  todo 获取监督检查list
     getList() {
-      this.page.SkipCount = (this.page.current - 1) * this.page.MaxResultCount;
       this.$axios
         .get(this.$api.GET_SUPERVISION_LIST, {
           params: this.page

@@ -26,7 +26,7 @@
       </el-submenu>
     </el-menu>
     <div class="base-footer">
-      <a :href="url">
+      <a :href="$store.state.SCREEN_URL">
         <img src="../assets/logo.png" alt="" />
       </a>
     </div>
@@ -53,7 +53,6 @@ export default {
   // Todo: 双向绑定的数据
   data() {
     return {
-      url: "http://datav.aliyuncs.com/share/68bee6533da70e1bbe008b60839f2ba3",
       menuValue: "UnitList",
       asideList: [
         {

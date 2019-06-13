@@ -108,8 +108,7 @@ export default {
               this.$cookies.set("isLogin", 1);
               this.$cookies.set("userInfo", JSON.stringify(res.result));
               // todo 登录成功跳大屏页面
-              // window.location.href =
-              //   "http://datav.aliyuncs.com/share/68bee6533da70e1bbe008b60839f2ba3";
+              // window.location.href = this.$store.state.SCREEN_URL;
               this.$router.push({
                 name: "home"
               });

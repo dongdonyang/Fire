@@ -10,7 +10,13 @@
               size="small"
               placeholder="请输入防火单位"
               v-model="page.Name"
-              @change="getList"
+              @change="
+                $store.dispatch({
+                  type: 'setPage',
+                  page: page,
+                  fun: getList
+                })
+              "
             >
               <template slot="append"
                 ><i class="el-icon-search"></i
@@ -53,7 +59,13 @@
               size="small"
               placeholder="请输入防火单位"
               v-model="page.Name"
-              @change="getList"
+              @change="
+                $store.dispatch({
+                  type: 'setPage',
+                  page: page,
+                  fun: getList
+                })
+              "
             >
               <template slot="append"
                 ><i class="el-icon-search"></i
@@ -177,7 +189,6 @@ export default {
   methods: {
     //  todo 获取值班巡逻监控list、超过多少天没有巡查的数量
     getList() {
-      this.page.SkipCount = (this.page.current - 1) * this.page.MaxResultCount;
       this.$axios
         .get(this.$api[this.url], {
           params: this.page

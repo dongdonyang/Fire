@@ -10,47 +10,19 @@
               size="small"
               placeholder="请输入防火单位"
               v-model="page.Name"
-              @change="getList"
+              @change="
+                $store.dispatch({
+                  type: 'setPage',
+                  page: page,
+                  fun: getList
+                })
+              "
             >
               <template slot="append"
                 ><i class="el-icon-search"></i
               ></template>
             </el-input>
           </el-form-item>
-          <!--          <el-form-item label="类型">-->
-          <!--            <el-select-->
-          <!--              clearable-->
-          <!--              size="small"-->
-          <!--              v-model="page.FireUnitTypeId"-->
-          <!--              placeholder="全部"-->
-          <!--              @change="getList"-->
-          <!--            >-->
-          <!--              <el-option-->
-          <!--                v-for="item in alarmTypeOpt"-->
-          <!--                :key="item.typeName"-->
-          <!--                :label="item.typeName"-->
-          <!--                :value="item.typeId"-->
-          <!--              >-->
-          <!--              </el-option>-->
-          <!--            </el-select>-->
-          <!--          </el-form-item>-->
-          <!--          <el-form-item label="网关状态">-->
-          <!--            <el-select-->
-          <!--              clearable-->
-          <!--              size="small"-->
-          <!--              v-model="page.GetwayStatusValue"-->
-          <!--              placeholder="全部"-->
-          <!--              @change="getList"-->
-          <!--            >-->
-          <!--              <el-option-->
-          <!--                v-for="item in alarmStatusOpt"-->
-          <!--                :key="item.gatewayStatusName"-->
-          <!--                :label="item.gatewayStatusName"-->
-          <!--                :value="item.gatewayStatusValue"-->
-          <!--              >-->
-          <!--              </el-option>-->
-          <!--            </el-select>-->
-          <!--          </el-form-item>-->
         </el-form>
       </div>
       <div>
@@ -165,7 +137,7 @@ export default {
         current: 1 // 当前页面
       },
       slotPage: {
-        MaxResultCount: 5, // 查询当前页面的数量
+        MaxResultCount: 10, // 查询当前页面的数量
         total: 0,
         SkipCount: 0, // 跳过的查询的数量
         current: 1 // 当前页面
@@ -214,30 +186,30 @@ export default {
     },
     // todo 分页查询slot数据
     async slotPageDetail() {
-      this.slotPage.SkipCount =
-        (this.slotPage.current - 1) * this.slotPage.MaxResultCount;
+      let s = this.slotPage;
+      s.SkipCount = (s.current - 1) * s.MaxResultCount;
       await this.$axios
         .get(this.$api.GET_FIRE_UNIT_PENDING_FAULT, {
-          params: this.slotPage
+          params: s
         })
         .then(res => {
           if (res.success) {
             this.partTableData = res.result.items;
-            this.slotPage.total = res.result.totalCount;
+            s.total = res.result.totalCount;
           }
         });
     },
     //  todo 获取设施故障监控list
     getList() {
-      this.page.SkipCount = (this.page.current - 1) * this.page.MaxResultCount;
       this.$axios
         .get(this.$api.GET_FIRE_UNIT_FAULT_LIST, {
           params: this.page
         })
         .then(res => {
           if (res.success) {
-            this.tableData = res.result.items;
-            this.page.total = res.result.totalCount;
+            let { items, totalCount } = res.result;
+            this.tableData = items;
+            this.page.total = totalCount;
           }
         });
     }

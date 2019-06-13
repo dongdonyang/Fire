@@ -8,7 +8,13 @@
           size="small"
           placeholder="请输入设施编号"
           v-model="page.Sn"
-          @change="getList"
+          @change="
+            $store.dispatch({
+              type: 'setPage',
+              page: page,
+              fun: getList
+            })
+          "
         >
           <template slot="append"
             ><i class="el-icon-search"></i
@@ -17,12 +23,12 @@
       </div>
       <div>
         <el-button type="text" @click="addInfo"
-          ><img src="../../assets/new_btn.png" />新增消火栓</el-button
+          ><img src="../../assets/new_btn.png" alt="" />新增消火栓</el-button
         >
         <el-button
           type="text"
           @click="$store.dispatch('exportFile', 'GET_HYDRANT_EXCEL')"
-          ><img src="../../assets/dowload.png" />导出</el-button
+          ><img src="../../assets/dowload.png" alt="" />导出</el-button
         >
       </div>
     </div>
@@ -298,16 +304,15 @@ export default {
     },
     // todo 分页查询slot数据
     async slotPageDetail() {
-      this.recordPage.SkipCount =
-        (this.recordPage.current - 1) * this.recordPage.MaxResultCount;
+      let p = this.recordPage;
+      p.SkipCount = (p.current - 1) * p.MaxResultCount;
       await this.$axios
         .get(this.$api.GET_NEARBY_ALARM_BYID, {
-          params: this.recordPage
+          params: p
         })
         .then(res => {
           if (res.success) {
-            this.partTableData = res.result.items;
-            this.recordPage.total = res.result.totalCount;
+            ({ items: this.partTableData, totalCount: p.total } = res.result);
           }
         });
     },
@@ -321,8 +326,9 @@ export default {
     },
     // todo 新增消火栓
     addInfo() {
-      this.$refs.BaseDialog.show = true;
-      this.$refs.BaseDialog.title = "ADD_HYDRANT";
+      let b = this.$refs.BaseDialog;
+      b.show = true;
+      b.title = "ADD_HYDRANT";
       this.form = {};
       this.isDeit = 0;
     },
@@ -336,7 +342,6 @@ export default {
     },
     //  todo 获取消火栓list
     getList() {
-      this.page.SkipCount = (this.page.current - 1) * this.page.MaxResultCount;
       let url = this.checked
         ? this.$api.GET_PRESSURE_SUBSTANDARD
         : this.$api.GET_HYDRANT_LIST;
@@ -365,8 +370,9 @@ export default {
             this.$nextTick(() => {
               this.getHisPress(id);
             });
-            this.$refs.BaseDialog.show = true;
-            this.$refs.BaseDialog.title = "HYDRANT_DETAIL";
+            let b = this.$refs.BaseDialog;
+            b.show = true;
+            b.title = "HYDRANT_DETAIL";
             this.form = res.result;
             this.isDeit = 1;
           }
@@ -388,7 +394,7 @@ export default {
       let yAxisData = [],
         seriesData = [];
       for (let item of this.hisPress) {
-        yAxisData.push(item.x.slice(5, 10));
+        yAxisData.push(item.x.slice(5, 10)); // 截取时间月日
         seriesData.push(item.y);
       }
       // 基于准备好的dom，初始化echarts实例
@@ -435,14 +441,13 @@ export default {
     submit() {
       this.$refs.form.validate(valid => {
         if (valid) {
-          let as = this.form.id
-            ? this.$axios.post(this.$api.UPDATE_HYDRANT, this.form)
-            : this.$axios.post(this.$api.ADD_HYDRANT, this.form);
+          let f = this.form;
+          let as = f.id
+            ? this.$axios.post(this.$api.UPDATE_HYDRANT, f)
+            : this.$axios.post(this.$api.ADD_HYDRANT, f);
           as.then(res => {
             if (res.success) {
-              this.$message.success(
-                `${this.form.id ? "修改" : "新增"}消火栓成功`
-              );
+              this.$message.success(`${f.id ? "修改" : "新增"}消火栓成功`);
               this.$refs.BaseDialog.show = false;
               this.getList();
             }

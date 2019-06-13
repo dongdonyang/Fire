@@ -8,7 +8,13 @@
           size="small"
           placeholder="请输入网格名称"
           v-model="page.GridName"
-          @change="getList"
+          @change="
+            $store.dispatch({
+              type: 'setPage',
+              page: page,
+              fun: getList
+            })
+          "
         >
           <template slot="append"
             ><i class="el-icon-search"></i
@@ -114,22 +120,23 @@ export default {
     },
     //  todo 获取街道网格list
     getList() {
-      this.page.SkipCount = (this.page.current - 1) * this.page.MaxResultCount;
       this.$axios
         .get(this.$api.GET_USER_LIST, {
           params: this.page
         })
         .then(res => {
           if (res.success) {
-            this.tableData = res.result.items;
-            this.page.total = res.result.totalCount;
+            let { items, totalCount } = res.result;
+            this.tableData = items;
+            this.page.total = totalCount;
           }
         });
     },
     // todo 新增街道网格
     addInfo() {
-      this.$refs.BaseDialog.show = true;
-      this.$refs.BaseDialog.title = "ADD_UNIT_LIST";
+      let b = this.$refs.BaseDialog
+      b.show = true;
+      b.title = "ADD_UNIT_LIST";
       this.form = {};
       this.isDeit = 0;
     },
@@ -141,8 +148,9 @@ export default {
         })
         .then(res => {
           if (res.success) {
-            this.$refs.BaseDialog.show = true;
-            this.$refs.BaseDialog.title = "EDIT_UNIT_LIST";
+            let b = this.$refs.BaseDialog;
+            b.show = true;
+            b.title = "EDIT_UNIT_LIST";
             this.form = res.result;
             this.isDeit = 1;
           }

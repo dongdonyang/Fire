@@ -9,7 +9,9 @@ export default new Vuex.Store({
   // todo this.$store.state.name;
   state: {
     userInfo: {}, // 用户登录信息
-    token: 0 // 保存的登录token信息
+    token: 0, // 保存的登录token信息
+    SCREEN_URL:
+      "http://datav.aliyuncs.com/share/68bee6533da70e1bbe008b60839f2ba3" // todo 大屏页面地址，为了能直接在html中使用，故写在vuex中，本想通过export方式的
   },
   // todo this.$store.commit("increment")
   mutations: {
@@ -95,6 +97,7 @@ export default new Vuex.Store({
     // todo 全局回调函数，主要用来筛选功能，传入page对象，和getlist函数，然后对page的所有操作在这进行,想直接在html中调用，卸载store中
     setPage(context, page = {}) {
       page.page.current = 1;
+      page.page.SkipCount = 0;
       page.fun();
     }
   }

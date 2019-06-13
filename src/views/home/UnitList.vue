@@ -23,12 +23,12 @@
       </div>
       <div>
         <el-button type="text" @click="addInfo"
-          ><img src="../../assets/new_btn.png" />新增防火单位</el-button
+          ><img src="../../assets/new_btn.png" alt="" />新增防火单位</el-button
         >
         <el-button
           type="text"
           @click="$store.dispatch('exportFile', 'GET_FIRE_UNIT_LIST_EXCEL')"
-          ><img src="../../assets/dowload.png" />导出</el-button
+          ><img src="../../assets/dowload.png" alt="" />导出</el-button
         >
       </div>
     </div>
@@ -336,9 +336,12 @@ export default {
     },
     // todo 打开地图
     openMap() {
-      this.key = this.key + 1;
-      this.$refs.MapDia.show = true;
-      this.$refs.MapDia.title = "GET_MAP_POSITION";
+      this.key += 1;
+      let m = this.$refs.MapDia;
+      ({ show: m.show, title: m.title } = {
+        show: true,
+        title: "GET_MAP_POSITION"
+      });
     },
     // todo 获取防火单位类型
     getUnitType() {
@@ -363,22 +366,24 @@ export default {
     },
     //  todo 获取防火单位list
     getList() {
-      this.page.SkipCount = (this.page.current - 1) * this.page.MaxResultCount;
       this.$axios
         .get(this.$api.GET_FIRE_UNIT_LIST, {
           params: this.page
         })
         .then(res => {
           if (res.success) {
-            this.tableData = res.result.items;
-            this.page.total = res.result.totalCount;
+            ({
+              items: this.tableData,
+              totalCount: this.page.total
+            } = res.result);
           }
         });
     },
     // todo 新增防火单位
     addInfo() {
-      this.$refs.BaseDialog.show = true;
-      this.$refs.BaseDialog.title = "ADD_UNIT_LIST";
+      let b = this.$refs.BaseDialog;
+      b.show = true;
+      b.title = "ADD_UNIT_LIST";
       this.form = {};
       this.isDeit = 0;
     },
@@ -390,8 +395,9 @@ export default {
         })
         .then(res => {
           if (res.success) {
-            this.$refs.BaseDialog.show = true;
-            this.$refs.BaseDialog.title = "EDIT_UNIT_LIST";
+            let b = this.$refs.BaseDialog;
+            b.show = true;
+            b.title = "EDIT_UNIT_LIST";
             this.form = res.result;
             this.isDeit = 1;
           }
@@ -415,14 +421,13 @@ export default {
     submit() {
       this.$refs.form.validate(valid => {
         if (valid) {
-          let as = this.form.id
-            ? this.$axios.put(this.$api.UPDATE_FIRE_UNIT, this.form)
-            : this.$axios.post(this.$api.ADD_FIRE_UNIT, this.form);
+          let f = this.form;
+          let as = f.id
+            ? this.$axios.put(this.$api.UPDATE_FIRE_UNIT, f)
+            : this.$axios.post(this.$api.ADD_FIRE_UNIT, f);
           as.then(res => {
             if (res.success) {
-              this.$message.success(
-                `${this.form.id ? "修改" : "新增"}防火单位成功`
-              );
+              this.$message.success(`${f.id ? "修改" : "新增"}防火单位成功`);
               this.$refs.BaseDialog.show = false;
               this.getList();
             }

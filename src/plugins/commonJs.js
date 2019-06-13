@@ -13,4 +13,3 @@ export function isDelete(val = "您确定删除该数据吗？") {
   pro.catch(() => {});
   return pro;
 }
-

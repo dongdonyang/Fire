@@ -10,7 +10,7 @@
               size="small"
               placeholder="请输入防火单位"
               v-model="page.Name"
-              @change="getList"
+              @change="getScreen"
             >
               <template slot="append"
                 ><i class="el-icon-search"></i
@@ -23,7 +23,7 @@
               size="small"
               v-model="page.FireUnitTypeId"
               placeholder="全部"
-              @change="getList"
+              @change="getScreen"
             >
               <el-option
                 v-for="item in alarmTypeOpt"
@@ -40,7 +40,7 @@
               size="small"
               v-model="page.GetwayStatusValue"
               placeholder="全部"
-              @change="getList"
+              @change="getScreen"
             >
               <el-option
                 v-for="item in alarmStatusOpt"
@@ -232,13 +232,22 @@ export default {
   // Todo: HTML 渲染前
   created: function() {
     this.getList();
+  },
+  // Todo: HTML渲染后
+  mounted: function() {
     this.getUnitType();
     this.getStatusType();
   },
-  // Todo: HTML渲染后
-  mounted: function() {},
   // Todo: 方法
   methods: {
+    // todo 条件筛选
+    getScreen() {
+      this.$store.dispatch({
+        type: "setPage",
+        page: this.page,
+        fun: this.getList
+      });
+    },
     // todo 获取单位类型
     getUnitType() {
       this.$axios.get(this.$api.GET_FIRE_UNIT_TYPES).then(res => {
@@ -257,11 +266,12 @@ export default {
     },
     // todo 获取slot详情
     slotDetail(val, slotName) {
+      let s = this.slotPage;
       if (arguments.length) {
         this.slotValue = val;
         this.slotName = slotName;
-        this.slotPage.id = val.fireUnitId;
-        this.slotPage.current = 1;
+        s.id = val.fireUnitId;
+        s.current = 1;
       }
       const APILIST = {
         //  最近30天报警次数
@@ -275,16 +285,15 @@ export default {
           title: "HIGH_FIRE_COUNT"
         }
       };
-      this.slotPage.SkipCount =
-        (this.slotPage.current - 1) * this.slotPage.MaxResultCount;
+      s.SkipCount = (s.current - 1) * s.MaxResultCount;
       this.$axios
         .get(APILIST[this.slotName].url, {
-          params: this.slotPage
+          params: s
         })
         .then(res => {
           if (res.success) {
             this.partTableData = res.result.items;
-            this.slotPage.total = res.result.totalCount;
+            s.total = res.result.totalCount;
             this.$refs[this.slotName].title = APILIST[this.slotName].title;
             this.$refs[this.slotName].show = true;
           }
@@ -292,7 +301,6 @@ export default {
     },
     //  todo 获取火灾报警监控list
     getList() {
-      this.page.SkipCount = (this.page.current - 1) * this.page.MaxResultCount;
       this.$axios
         .get(this.$api.GET_AREAS_ALARM_LIST, {
           params: this.page

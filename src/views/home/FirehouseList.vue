@@ -8,7 +8,13 @@
           clearable
           placeholder="请输入站点名称"
           v-model="page.Name"
-          @change="getList"
+          @change="
+            $store.dispatch({
+              type: 'setPage',
+              page: page,
+              fun: getList
+            })
+          "
         >
           <template slot="append"
             ><i class="el-icon-search"></i
@@ -249,8 +255,9 @@ export default {
         })
         .then(res => {
           if (res.success) {
-            this.$refs.BaseDialog.show = true;
-            this.$refs.BaseDialog.title = "SITE_DETAIL";
+            let b = this.$refs.BaseDialog;
+            b.show = true;
+            b.title = "SITE_DETAIL";
             this.form = res.result;
             this.isDeit = 1;
             this.$store.dispatch("getPositionName", res.result).then(res => {
@@ -298,22 +305,24 @@ export default {
     },
     // todo 新增微型消防站
     addInfo() {
-      this.$refs.BaseDialog.show = true;
-      this.$refs.BaseDialog.title = "ADD_MINI_STATION";
+      let b = this.$refs.BaseDialog;
+      b.show = true;
+      b.title = "ADD_MINI_STATION";
       this.form = {};
       this.isDeit = 0;
     },
     //  todo 获取微型消防站list
     getList() {
-      this.page.SkipCount = (this.page.current - 1) * this.page.MaxResultCount;
       this.$axios
         .get(this.$api.GET_FIRE_STATION, {
           params: this.page
         })
         .then(res => {
           if (res.success) {
-            this.tableData = res.result.items;
-            this.page.total = res.result.totalCount;
+            ({
+              items: this.tableData,
+              totalCount: this.page.total
+            } = res.result);
           }
         });
     }

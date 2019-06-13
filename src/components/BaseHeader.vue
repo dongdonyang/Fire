@@ -211,8 +211,8 @@ export default {
   & > :nth-child(2) {
     text-align: center;
     font-size: 22px;
-    & > :nth-child(1){
-      padding-top: 20px;
+    & > :nth-child(1) {
+      padding-top: 10px;
     }
   }
   & > :nth-child(1),// 左右两边的固定宽度，为了让中间内容居中

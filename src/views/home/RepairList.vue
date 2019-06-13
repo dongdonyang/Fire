@@ -8,7 +8,13 @@
           size="small"
           placeholder="请输入搜索单位"
           v-model="page.Name"
-          @change="getList"
+          @change="
+            $store.dispatch({
+              type: 'setPage',
+              page: page,
+              fun: getList
+            })
+          "
         >
           <template slot="append"
             ><i class="el-icon-search"></i
@@ -216,8 +222,9 @@ export default {
     },
     // todo 新增消防维保
     addInfo() {
-      this.$refs.BaseDialog.show = true;
-      this.$refs.BaseDialog.title = "ADD_REPAIR_STATION";
+      let b = this.$refs.BaseDialog;
+      b.show = true;
+      b.title = "ADD_REPAIR_STATION";
       this.form = {};
       this.isDeit = 0;
     },
@@ -229,8 +236,9 @@ export default {
         })
         .then(res => {
           if (res.success) {
-            this.$refs.BaseDialog.show = true;
-            this.$refs.BaseDialog.title = "REPAIR_STATION_INFO";
+            let b = this.$refs.BaseDialog;
+            b.show = true;
+            b.title = "REPAIR_STATION_INFO";
             this.form = res.result;
             this.isDeit = 1;
           }
@@ -257,8 +265,9 @@ export default {
         })
         .then(res => {
           if (res.success) {
-            this.tableData = res.result.items;
-            this.page.total = res.result.totalCount;
+            let { items, totalCount } = res.result;
+            this.tableData = items;
+            this.page.total = totalCount;
           }
         });
     }

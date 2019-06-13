@@ -54,7 +54,9 @@ export default {
     //    todo 当前页改变
     currentChange(val) {
       console.log(`当前页${val}`);
-      this.propPag.current = val;
+      let p = this.propPag;
+      p.current = val;
+      p.SkipCount = (val - 1) * p.MaxResultCount; // todo 分页，需要跳过多少数据进行查询
       this.$emit("currentChange");
     }
   }

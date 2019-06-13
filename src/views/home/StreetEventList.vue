@@ -8,7 +8,13 @@
             clearable
             size="small"
             v-model="page.Status"
-            @change="getList"
+            @change="
+              $store.dispatch({
+                type: 'setPage',
+                page: page,
+                fun: getList
+              })
+            "
             placeholder="全部"
           >
             <el-option
@@ -211,8 +217,9 @@ export default {
         })
         .then(res => {
           if (res.success) {
-            this.$refs.BaseDialog.show = true;
-            this.$refs.BaseDialog.title = "STREET_EVENT_DETAIL";
+            let b = this.$refs.BaseDialog;
+            b.show = true;
+            b.title = "STREET_EVENT_DETAIL";
             this.form = res.result;
             this.isDeit = 1;
           }
@@ -220,15 +227,15 @@ export default {
     },
     //  todo 获取网格事件list
     getList() {
-      this.page.SkipCount = (this.page.current - 1) * this.page.MaxResultCount;
       this.$axios
         .get(this.$api.GET_GRID_EVENT_LIST, {
           params: this.page
         })
         .then(res => {
           if (res.success) {
-            this.tableData = res.result.items;
-            this.page.total = res.result.totalCount;
+            let r = res.result;
+            this.tableData = r.items;
+            this.page.total = r.totalCount;
           }
         });
     }
