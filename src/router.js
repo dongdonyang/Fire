@@ -27,7 +27,7 @@ const router = new Router({
           //  地图展示
           path: "UnitMap",
           name: "UnitMap",
-          component: () => import("./views/home/UnitMap")
+          component: () => import("./views/home/UnitMap-old")
         },
         {
           //  单位列表

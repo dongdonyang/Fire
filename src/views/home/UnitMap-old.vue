@@ -103,7 +103,7 @@ export default {
           for (let item of res) {
             let marker = new AMap.Marker({
               position: new AMap.LngLat(item.lng, item.lat), // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
-              title: item.id
+              title: item.info
             });
             marker.item = item; // 自定义参数
             marker.on("click", that.getUnitInfo);
