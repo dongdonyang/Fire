@@ -75,7 +75,7 @@
     <!--    todo 弹窗-报警记录-->
     <base-dialog
       ref="getTimeDetail"
-      dia-width="700px"
+      dia-width="900px"
       :is-show-footer="false"
       class="alarm-record"
     >
@@ -96,7 +96,7 @@
     <!--    todo 弹窗-报警部件-->
     <base-dialog
       ref="getPartsDetail"
-      dia-width="650px"
+      dia-width="900px"
       class="alarm-record"
       :is-show-footer="false"
     >
@@ -145,7 +145,7 @@ export default {
       slotValue: {},
       slotName: "",
       slotPage: {
-        MaxResultCount: 10, // 查询当前页面的数量
+        MaxResultCount: 8, // 查询当前页面的数量
         total: 0,
         SkipCount: 0, // 跳过的查询的数量
         current: 1 // 当前页面
@@ -189,7 +189,8 @@ export default {
       partTableList: [
         {
           prop: "name",
-          label: "报警部件"
+          label: "报警部件",
+          width: "500px"
         },
         {
           prop: "time",
@@ -205,12 +206,11 @@ export default {
         {
           prop: "content",
           label: "事件",
-          width: "280"
+          width: "500px"
         },
         {
           prop: "location",
-          label: "地点",
-          width: "280"
+          label: "地点"
         },
         {
           prop: "time",

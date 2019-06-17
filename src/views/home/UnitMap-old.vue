@@ -7,23 +7,29 @@
       <div>
         <el-form label-width="68px" class="unit-map-form">
           <el-form-item label="单位名称">{{ unitInfo.name }} </el-form-item>
-          <el-form-item label="联系方式"
-            >{{ unitInfo.contractName }} {{ unitInfo.contractPhone }}
+          <el-form-item label="联系方式">
+            <span
+              >{{ unitInfo.contractName }} {{ unitInfo.contractPhone }}</span
+            >
+            <div>{{ unitInfo.area }}({{ unitInfo.address }})</div>
           </el-form-item>
           <el-form-item label-width="0px">
             <el-table
+              border
               class="unit-map-table"
               :data="tableData"
               style="width: 100%"
             >
               <el-table-column prop="name" label="数据类型"> </el-table-column>
-              <el-table-column prop="value" label="最近30天记录">
+              <el-table-column prop="value" align="center" label="最近30天记录">
               </el-table-column>
             </el-table>
           </el-form-item>
         </el-form>
       </div>
-      <div id="myChart"></div>
+      <div>
+        <div id="myChart"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -100,22 +106,64 @@ export default {
           this.spots = res;
           let spotArray = [];
           this.getUnitInfo();
+          let style = [
+            {
+              url:
+                "//datav.oss-cn-hangzhou.aliyuncs.com/uploads/images/32a60b3e7d599f983aa1a604fb640d7e.gif",
+              anchor: new AMap.Pixel(6, 6),
+              size: new AMap.Size(12, 12)
+            },
+            {
+              url:
+                "//datav.oss-cn-hangzhou.aliyuncs.com/uploads/images/32a60b3e7d599f983aa1a604fb640d7e.gif",
+              anchor: new AMap.Pixel(3, 3),
+              size: new AMap.Size(12, 12)
+            },
+            {
+              url:
+                "//datav.oss-cn-hangzhou.aliyuncs.com/uploads/images/32a60b3e7d599f983aa1a604fb640d7e.gif",
+              anchor: new AMap.Pixel(4, 4),
+              size: new AMap.Size(12, 12)
+            }
+          ];
           for (let item of res) {
-            let marker = new AMap.Marker({
-              position: new AMap.LngLat(item.lng, item.lat), // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
-              title: item.info
+            spotArray.push({
+              lnglat: [item.lng, item.lat], //点标记位置
+              name: item.info,
+              id: item.id,
             });
-            marker.item = item; // 自定义参数
-            marker.on("click", that.getUnitInfo);
-            spotArray.push(marker);
           }
-          this.map.add(spotArray);
+          let mass = new AMap.MassMarks(spotArray, {
+            opacity: 0.8,
+            zIndex: 111,
+            cursor: "pointer",
+            style: style
+          });
+          let marker = new AMap.Marker({ content: " ", map: that.map }); // todo 创建一个海量图层
+          // todo 点的hover
+          mass.on("mouseover", function(e) {
+            marker.setPosition(e.data.lnglat);
+            marker.setLabel({ content: e.data.name });
+          });
+          // todo 点击事件
+          mass.on("click", that.getUnitInfo);
+          mass.setMap(that.map);
         });
+    },
+    // todo 海量点标记
+    offset(markers) {
+      let that = this;
+      this.map.plugin(["AMap.MarkerClusterer"], function() {
+        let cluster = new AMap.MarkerClusterer(
+          that.map, // 地图实例
+          markers // 海量点组成的数组
+        );
+      });
     },
     // todo 获取防火单位的具体信息、标记点点击事件
     getUnitInfo(value = 0) {
       let id = value
-        ? value.target.item.id
+        ? value.data.id
         : this.spots.length
         ? this.spots[0].id
         : "";
@@ -202,6 +250,20 @@ export default {
           {
             name: "2019年",
             type: "bar",
+            itemStyle: {
+              emphasis: {
+                barBorderRadius: 7
+              },
+              normal: {
+                barBorderRadius: 7, // 圆角
+                color: new this.$echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                  { offset: 0, color: "#FF0066" },
+                  { offset: 0.5, color: "#FF3300" },
+                  { offset: 1, color: "#FF6633" }
+                ]) // 渐变
+              }
+            },
+            barWidth: 15, // 宽度
             data: seriesData
           }
         ]
@@ -225,15 +287,26 @@ export default {
   }
   & > :last-child {
     width: 400px;
+    display: flex;
+    flex-direction: column;
     & > :first-child,
     & > :last-child {
       border: 2px solid $table-main;
       box-sizing: border-box;
-      min-height: 50%;
-      padding: 5px;
+      padding: 5px 5px 0 5px;
+    }
+    & > :last-child {
+      flex: 2 0 auto;
+      & > :first-child {
+        min-height: 70%;
+      }
     }
   }
   &-form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     .el-form-item__label {
       color: rgba(255, 255, 255, 0.6) !important;
     }
@@ -249,21 +322,25 @@ export default {
         font-size: 16px;
       }
     }
+    & > :nth-child(3) {
+      margin-bottom: 0 !important;
+    }
     .el-form-item {
       margin-bottom: 10px;
     }
   }
+  /* todo table*/
   .el-table th.is-leaf,
   .el-table td {
-    border-bottom-width: 0;
+    border-color: $font-white;
   }
   /*todo hover*/
   .el-table--enable-row-hover .el-table__body tr:hover > td {
-    background-color: $table-header !important;
+    background-color: transparent !important;
   }
   .el-table th {
     line-height: 20px;
-    background-color: $table-header;
+    background-color: #000033;
     color: $font-white;
   }
   &-table {

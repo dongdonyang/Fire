@@ -45,7 +45,12 @@
     <base-page v-bind:prop-pag.sync="page" @currentChange="getList"></base-page>
 
     <!--    todo 弹窗-->
-    <base-dialog :isShowFooter="false" ref="getTimeDetail" class="alarm-record">
+    <base-dialog
+      :isShowFooter="false"
+      dia-width="900px"
+      ref="getTimeDetail"
+      class="alarm-record"
+    >
       <div>
         <div>{{ slotVal.fireUnitName }}</div>
         <div>总数：{{ slotPage.total }}</div>
@@ -137,7 +142,7 @@ export default {
         current: 1 // 当前页面
       },
       slotPage: {
-        MaxResultCount: 10, // 查询当前页面的数量
+        MaxResultCount: 8, // 查询当前页面的数量
         total: 0,
         SkipCount: 0, // 跳过的查询的数量
         current: 1 // 当前页面
