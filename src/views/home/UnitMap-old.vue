@@ -4,6 +4,7 @@
     <div id="container"></div>
     <!--    todo 右侧信息栏-->
     <div>
+      <!--      todo 基本信息框-->
       <div>
         <el-form label-width="68px" class="unit-map-form">
           <el-form-item label="单位名称">{{ unitInfo.name }} </el-form-item>
@@ -27,6 +28,8 @@
           </el-form-item>
         </el-form>
       </div>
+
+      <!--      todo 统计图-->
       <div>
         <div id="myChart"></div>
       </div>
@@ -36,7 +39,6 @@
 
 <script>
 // Todo VUE代码风格、拒绝硬编码！
-import BaseTable from "../../components/BaseTable";
 /**
  *  作者：                                             时间：
  *  1,常量从js文件引入，不要定义魔术变量
@@ -49,7 +51,7 @@ import BaseTable from "../../components/BaseTable";
 export default {
   name: "UnitMapOld",
   // Todo: 组件注册
-  components: { BaseTable },
+  components: {},
   // Todo: 特性
   props: {},
   // Todo: 双向绑定的数据
@@ -82,7 +84,6 @@ export default {
     this.newMap();
     this.getSpot();
     this.getChartVal();
-    // this.setChart();
   },
   // Todo: 方法
   methods: {
@@ -91,7 +92,7 @@ export default {
       this.map = new AMap.Map("container", {
         resizeEnable: true, //是否监控地图容器尺寸变化
         zoom: 11, //初始化地图层级
-        mapStyle: "amap://styles/darkblue"
+        mapStyle: "amap://styles/darkblue" // 地图风格、极夜蓝
       });
     },
     // todo 获取地图点的标记
@@ -102,48 +103,36 @@ export default {
           params: { value: 4 }
         })
         .then(res => {
-          console.log(res);
           this.spots = res;
           let spotArray = [];
           this.getUnitInfo();
+          // todo 遍历数组给点赋值
+          for (let item of res) {
+            spotArray.push({
+              lnglat: [item.lng, item.lat], //点标记位置
+              name: item.info,
+              id: item.id
+            });
+          }
           let style = [
             {
               url:
                 "//datav.oss-cn-hangzhou.aliyuncs.com/uploads/images/32a60b3e7d599f983aa1a604fb640d7e.gif",
               anchor: new AMap.Pixel(6, 6),
               size: new AMap.Size(12, 12)
-            },
-            {
-              url:
-                "//datav.oss-cn-hangzhou.aliyuncs.com/uploads/images/32a60b3e7d599f983aa1a604fb640d7e.gif",
-              anchor: new AMap.Pixel(3, 3),
-              size: new AMap.Size(12, 12)
-            },
-            {
-              url:
-                "//datav.oss-cn-hangzhou.aliyuncs.com/uploads/images/32a60b3e7d599f983aa1a604fb640d7e.gif",
-              anchor: new AMap.Pixel(4, 4),
-              size: new AMap.Size(12, 12)
             }
           ];
-          for (let item of res) {
-            spotArray.push({
-              lnglat: [item.lng, item.lat], //点标记位置
-              name: item.info,
-              id: item.id,
-            });
-          }
           let mass = new AMap.MassMarks(spotArray, {
             opacity: 0.8,
             zIndex: 111,
             cursor: "pointer",
             style: style
           });
-          let marker = new AMap.Marker({ content: " ", map: that.map }); // todo 创建一个海量图层
+          let marker = new AMap.Marker({ content: "name", map: that.map }); // todo 创建一个海量图层
           // todo 点的hover
           mass.on("mouseover", function(e) {
             marker.setPosition(e.data.lnglat);
-            marker.setLabel({ content: e.data.name });
+            // marker.setLabel({ content: e.data.name });
           });
           // todo 点击事件
           mass.on("click", that.getUnitInfo);

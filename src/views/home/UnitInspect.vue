@@ -76,13 +76,54 @@
               :label="item.label"
               :key="index"
             >
+              <!--              todo 替换中文-->
               <span v-if="index === 3">{{ getName(form[item.value]) }}</span>
+
+              <!--              todo 文书title-->
               <template slot="label" v-else-if="index === 4">
                 <span style="display: flex">
                   <img src="../../assets/book.svg" />
                   {{ item.label }}</span
                 >
               </template>
+
+              <!--              todo 照片-->
+              <template v-else-if="index === 12">
+                <el-form-item slot="label">
+                  <span v-if="form.photoPath.length > 0">
+                    <span style="display: flex">
+                      <img src="../../assets/pic.svg" />
+                      {{ item.label }}</span
+                    >
+                  </span>
+                </el-form-item>
+                <div>
+                  <br />
+                  <div
+                    @click="seePic($event)"
+                    v-if="form.photoPath.length > 0"
+                    class="unit-inspect-tab-form-img"
+                  >
+                    <el-image
+                      v-for="(item, index) in form.photoPath"
+                      :key="index"
+                      style="width: 120px; height: 120px"
+                      :src="`http://47.98.179.238:5080${item}`"
+                      fit="cover"
+                    ></el-image>
+                  </div>
+                  <!--                  todo 图片弹窗-->
+                  <el-dialog
+                    class="unit-inspect-tab-form-dia"
+                    append-to-body
+                    :visible.sync="dialogPic"
+                  >
+                    <img width="100%" :src="dialogImageUrl" alt="" />
+                  </el-dialog>
+                </div>
+              </template>
+
+              <!--todo 默认展示数据-->
               <span v-else>{{ form[item.value] }}</span>
             </el-form-item>
           </el-form>
@@ -149,6 +190,8 @@ export default {
   // Todo: 双向绑定的数据
   data() {
     return {
+      dialogPic: false,
+      dialogImageUrl: "",
       checkResultOpt: [
         {
           label: "未指定",
@@ -173,7 +216,9 @@ export default {
       ],
       activeClass: "activeClass",
       errorClass: "errorClass",
-      form: {},
+      form: {
+        photoPath: []
+      },
       formDetail: {},
       tabValue: "first",
       formList: [
@@ -224,6 +269,10 @@ export default {
         {
           label: "处罚决定书：",
           value: "documentPunish"
+        },
+        {
+          label: "现场照片",
+          value: "photoPath"
         }
       ],
       alarmType: "",
@@ -272,15 +321,21 @@ export default {
   mounted: function() {},
   // Todo: 方法
   methods: {
+    // todo 图片预览
+    seePic(event) {
+      this.dialogImageUrl = event.target.src;
+      this.dialogPic = this.dialogImageUrl ? true : false;
+    },
     //todo 获取检查结论中文名
     getName(val) {
       if (!val) {
         return "";
+      } else {
+        let name = this.checkResultOpt.find(item => {
+          return item.value === val;
+        });
+        return name.label ? name.label : "";
       }
-      let name = this.checkResultOpt.find(item => {
-        return item.value === val;
-      });
-      return name.label ? name.label : "";
     },
     // todo 查看详情
     getDetail(id) {
@@ -383,9 +438,30 @@ export default {
         font-weight: bold;
       }
     }
-    /*& > :nth-child(n+7){*/
-    /*  background-color: red;*/
-    /*}*/
+    /* todo 照片墙*/
+    & > :nth-child(n + 13) {
+      width: 100%;
+      border-bottom-width: 0;
+    }
+    &-img {
+      display: flex;
+      padding: 10px 26px;
+      .el-image {
+        margin: 0 10px;
+        cursor: Pointer;
+        &:hover {
+        }
+      }
+    }
+    /* todo 照片弹窗*/
+    &-dia {
+      & > :first-child {
+        background-color: $dialog-main;
+        .el-dialog__header {
+          display: none;
+        }
+      }
+    }
   }
   &-tab-form-detail {
     & > div {
