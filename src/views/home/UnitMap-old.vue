@@ -85,6 +85,7 @@ export default {
     this.getSpotMore();
     this.getChartVal();
     this.setarea();
+    // this.diyMarker();
   },
   // Todo: 方法
   methods: {
@@ -108,10 +109,12 @@ export default {
           this.spots = res;
           let spotArray = [];
           this.getUnitInfo();
+          let that = this;
           for (let item of res) {
             let marker = new AMap.Marker({
               position: new AMap.LngLat(item.lng, item.lat), // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
               title: item.info,
+              offset: new AMap.Pixel(-10, -10),
               icon:
                 "//datav.oss-cn-hangzhou.aliyuncs.com/uploads/images/32a60b3e7d599f983aa1a604fb640d7e.gif"
             });
@@ -174,6 +177,26 @@ export default {
           that.map, // 地图实例
           markers // 海量点组成的数组
         );
+      });
+    },
+    // todo 自定义标记点
+    diyMarker() {
+      let that = this;
+      AMapUI.loadUI(["overlay/SimpleMarker"], function(SimpleMarker) {
+        new SimpleMarker({
+          //自定义图标地址
+          iconStyle: {
+            src: "//webapi.amap.com/theme/v1.3/markers/b/mark_b.png",
+            style: {
+              width: "20px",
+              height: "30px"
+            }
+          },
+          map: that.map,
+          showPositionPoint: true,
+          position: [116.405285, 39.904989],
+          zIndex: 100
+        });
       });
     },
     // todo 行政区的划分

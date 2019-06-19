@@ -95,12 +95,18 @@ export default {
         this.spots = res;
         let spotArray = [];
         this.getUnitInfo();
+        // 创建 AMap.Icon 实例：
+        let icon = new AMap.Icon({
+          size: new AMap.Size(40, 50), // 图标尺寸
+          image:
+            "//datav.oss-cn-hangzhou.aliyuncs.com/uploads/images/32a60b3e7d599f983aa1a604fb640d7e.gif" // Icon的图像
+        });
         for (let item of res) {
           let marker = new AMap.Marker({
             position: new AMap.LngLat(item.lng, item.lat), // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
             title: item.info,
-            icon:
-              "//datav.oss-cn-hangzhou.aliyuncs.com/uploads/images/32a60b3e7d599f983aa1a604fb640d7e.gif"
+            offset: new AMap.Pixel(-10, -10),
+            icon: icon
           });
           marker.item = item; // 自定义参数
           marker.on("click", that.getUnitInfo);
