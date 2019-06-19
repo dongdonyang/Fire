@@ -16,8 +16,7 @@ const API = {
   GET_FIRE_UNIT_DATA_GRID: "/api/services/app/BigScreen/GetFireUnitDataGrid", // 防火单位：单位数据表格
   GET_FIRE_UNIT_TYPE_HISTOGRAM:
     "/api/services/app/BigScreen/GetFireUnitTypeHistogram", // 防火单位：类型柱状图
-  GET_HYDRANT_PRESS_HISTORY:
-    "/api/services/app/BigScreen/GetHydrantPressHistory", // 消火栓：历史水压
+
   GET_AREAS_CHENGHUA: "/api/services/app/Area/GetAreasChenghua", //查询成华区子级区域数组
   GET_FIRE_UNIT_LIST_EXCEL: "/api/services/app/FireUnit/GetFireUnitListExcel", //（所有防火单位）导出防火单位列表excel
   GET_FIREALARM_LIST_EXCEL:
@@ -103,6 +102,12 @@ const API = {
   GET_PRESSURE_SUBSTANDARD: "/api/services/app/Hydrant/GetPressureSubstandard", //查询水压低于标准值的消火栓
 
   //    todo 市政消火栓模块
+  GET_HYDRANT_BREATHING_BUBBLE:
+    "/api/services/app/BigScreen/GetHydrantBreathingBubble", //消火栓：地图呼吸气泡层
+  GET_HYDRANT_PRESS_HISTORY:
+    "/api/services/app/BigScreen/GetHydrantPressHistory", // 消火栓：历史水压
+  GET_HYDRANT_AREA_HISTOGRAM:
+    "/api/services/app/BigScreen/GetHydrantAreaHistogram", //消火栓：区域柱状图
   ADD_HYDRANT: "/api/services/app/Hydrant/Add", //   新增
   DELETE_HYDRANT: "/api/services/app/Hydrant/Delete", //     删除
   GET_INFO_BYID: "/api/services/app/Hydrant/GetInfoById", //     获取实体信息

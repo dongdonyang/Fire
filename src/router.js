@@ -109,7 +109,7 @@ const router = new Router({
         {
           path: "GovernMap",
           name: "GovernMap",
-          component: () => import("./views/home/GovernMap")
+          component: () => import("./views/home/GovernMap-old")
         }
       ]
     },
