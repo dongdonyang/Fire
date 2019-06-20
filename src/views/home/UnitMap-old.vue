@@ -110,19 +110,42 @@ export default {
           let spotArray = [];
           this.getUnitInfo();
           let that = this;
+          // 创建 AMap.Icon 实例：
+          let icon = new AMap.Icon({
+            size: new AMap.Size(40, 50), // 图标尺寸
+            image:
+              "//datav.oss-cn-hangzhou.aliyuncs.com/uploads/images/32a60b3e7d599f983aa1a604fb640d7e.gif" // Icon的图像
+          });
           for (let item of res) {
             let marker = new AMap.Marker({
               position: new AMap.LngLat(item.lng, item.lat), // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
               title: item.info,
               offset: new AMap.Pixel(-10, -10),
-              icon:
-                "//datav.oss-cn-hangzhou.aliyuncs.com/uploads/images/32a60b3e7d599f983aa1a604fb640d7e.gif"
+              icon: icon
             });
             marker.item = item; // 自定义参数
             marker.on("click", that.getUnitInfo);
             spotArray.push(marker);
           }
           this.map.add(spotArray);
+          //  todo 点聚合
+          let sts = [
+            {
+              url: "https://a.amap.com/jsapi_demos/static/images/green.png",
+              size: new AMap.Size(32, 32),
+              offset: new AMap.Pixel(-16, -16)
+            }
+          ];
+          that.map.plugin(["AMap.MarkerClusterer"], function() {
+            let cluster = new AMap.MarkerClusterer(
+              that.map, // 地图实例
+              spotArray, // 海量点组成的数组
+              {
+                averageCenter: true,
+                styles: sts
+              }
+            );
+          });
         });
     },
     // todo 获取地图点的标记、海量点

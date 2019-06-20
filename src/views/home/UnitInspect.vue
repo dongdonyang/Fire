@@ -426,7 +426,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
     & > div {
-      min-width: 50%;
+      width: 50%;
       margin-bottom: 10px;
       border-bottom: 1.2px solid $input-back;
     }
