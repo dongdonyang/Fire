@@ -129,23 +129,23 @@ export default {
           }
           this.map.add(spotArray);
           //  todo 点聚合
-          let sts = [
-            {
-              url: "https://a.amap.com/jsapi_demos/static/images/green.png",
-              size: new AMap.Size(32, 32),
-              offset: new AMap.Pixel(-16, -16)
-            }
-          ];
-          that.map.plugin(["AMap.MarkerClusterer"], function() {
-            let cluster = new AMap.MarkerClusterer(
-              that.map, // 地图实例
-              spotArray, // 海量点组成的数组
-              {
-                averageCenter: true,
-                styles: sts
-              }
-            );
-          });
+          // let sts = [
+          //   {
+          //     url: "https://a.amap.com/jsapi_demos/static/images/green.png",
+          //     size: new AMap.Size(32, 32),
+          //     offset: new AMap.Pixel(-16, -16)
+          //   }
+          // ];
+          // that.map.plugin(["AMap.MarkerClusterer"], function() {
+          //   let cluster = new AMap.MarkerClusterer(
+          //     that.map, // 地图实例
+          //     spotArray, // 海量点组成的数组
+          //     {
+          //       averageCenter: true,
+          //       styles: sts
+          //     }
+          //   );
+          // });
         });
     },
     // todo 获取地图点的标记、海量点
@@ -359,9 +359,9 @@ export default {
               normal: {
                 barBorderRadius: 7, // 圆角
                 color: new this.$echarts.graphic.LinearGradient(0, 0, 1, 0, [
-                  { offset: 0, color: "#FF0066" },
-                  { offset: 0.5, color: "#FF3300" },
-                  { offset: 1, color: "#FF6633" }
+                  { offset: 0, color: "#0099FF" },
+                  { offset: 0.5, color: "#409EFF" },
+                  { offset: 1, color: "#00CCFF" }
                 ]) // 渐变
               }
             },
