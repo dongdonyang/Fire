@@ -334,6 +334,18 @@ export default {
         this.safeUnitsOpt = [];
       }
     },
+    // 查询维保单位list
+    getSafeList(Name = "") {
+      this.$axios
+        .get(this.$api.GET_SAFE_KEY, {
+          params: { Name }
+        })
+        .then(res => {
+          if (res.success) {
+            this.safeUnitsOpt = res.result;
+          }
+        });
+    },
     // todo 打开地图
     openMap() {
       this.key += 1;
@@ -354,6 +366,7 @@ export default {
     // todo 修改、需要查询相应的类型，街道、维保单位id
     editInfo(val) {
       let typeName, areaName;
+      this.getSafeList(this.form.safeUnit);
       typeName = this.typeOptions.find(item => {
         return item.typeName === this.form.type;
       });
@@ -386,6 +399,7 @@ export default {
       b.title = "ADD_UNIT_LIST";
       this.form = {};
       this.isDeit = 0;
+      this.getSafeList();
     },
     // todo 查看详情
     getDetail(id) {

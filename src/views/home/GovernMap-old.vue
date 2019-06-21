@@ -15,7 +15,7 @@
             {{ unitInfo.pressure }}kPa
           </el-form-item>
           <el-form-item label-width="0px">
-            <div id="myLineChart" style="width: 390px; height: 280px"></div>
+            <div id="myLineChart" style="width: 370px; height: 250px"></div>
           </el-form-item>
         </el-form>
       </div>
@@ -84,7 +84,8 @@ export default {
       this.map = new AMap.Map("container", {
         resizeEnable: true, //是否监控地图容器尺寸变化
         zoom: 11, //初始化地图层级
-        mapStyle: "amap://styles/darkblue" // 地图风格、极夜蓝
+        mapStyle: "amap://styles/darkblue", // 地图风格、极夜蓝
+        showLabel: false
       });
     },
     // todo 获取地图点的标记、标记点
@@ -384,12 +385,16 @@ export default {
 <style lang="scss">
 @import "../../style/app-variables";
 .govern-map {
+  border-width: 0 !important;
   display: flex;
   & > :first-child {
-    background-color: $body-back !important; // 防止白屏
-    flex: 1 0 auto;
-    border: 2px solid $table-main;
     margin-right: 5px;
+    flex: 1 0 auto;
+    border-image: url("../../assets/mapBoeder.png") 32 37 fill / 1 / 0 stretch;
+    border-style: solid;
+    border-radius: 25px;
+    border-width: 12px 12px;
+    background: transparent !important; // 防止白屏
   }
   & > :last-child {
     width: 400px;
@@ -397,11 +402,14 @@ export default {
     flex-direction: column;
     & > :first-child,
     & > :last-child {
-      border: 2px solid $table-main;
       box-sizing: border-box;
-      padding: 5px 5px 0 5px;
+      border-image: url("../../assets/mapBoeder.png") 32 37 fill / 1 / 0 stretch;
+      border-style: solid;
+      border-width: 24px 24px;
+      background: none;
     }
     & > :last-child {
+      margin-top: 5px;
       flex: 2 0 auto;
       & > :first-child {
         min-height: 100%;
@@ -434,7 +442,7 @@ export default {
       margin-bottom: 0 !important;
     }
     .el-form-item {
-      margin-bottom: 10px;
+      margin-bottom: 5px;
     }
   }
 }

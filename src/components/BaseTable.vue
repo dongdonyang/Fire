@@ -240,7 +240,6 @@ export default {
     background-color: $table-header;
     color: $font-white;
   }
-
   /*TODO table body*/
   tbody {
     /*todo 设置行高,因为有按钮把某些表行撑高了，为了统一所有表的行高*/

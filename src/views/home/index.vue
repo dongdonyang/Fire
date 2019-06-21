@@ -8,6 +8,7 @@
         <el-aside class="index-aside">
           <base-aside></base-aside>
         </el-aside>
+        <!--        todo 添加路由切换过渡效果-->
         <router-view></router-view>
       </el-container>
       <!--    todo 尾部-->
@@ -62,6 +63,9 @@ export default {
    属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto
  */
 .index {
+  background-image: url("../../assets/mainBack.png");
+  background-repeat: repeat-y;
+  background-size: 100%, 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -72,6 +76,11 @@ export default {
     & > :last-child {
       margin-left: 10px;
       flex: 2 0 auto;
+      box-sizing: border-box;
+      border-image: url("../../assets/mapBoeder.png") 32 37 fill / 1 / 0 stretch;
+      border-style: solid;
+      border-width: 12px 12px;
+      background: none;
     }
   }
   &-aside {

@@ -108,10 +108,10 @@ export default {
               this.$cookies.set("isLogin", 1);
               this.$cookies.set("userInfo", JSON.stringify(res.result));
               // todo 登录成功跳大屏页面
-              window.location.href = this.$store.state.SCREEN_URL;
-              // this.$router.push({
-              //   name: "home"
-              // });
+              // window.location.href = this.$store.state.SCREEN_URL;
+              this.$router.push({
+                name: "home"
+              });
             } else {
               this.$message.error(res.result.failCause);
             }

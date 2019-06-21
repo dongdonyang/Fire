@@ -1,10 +1,7 @@
 <template>
-  <div
-    style=" height: 100%;display: flex; flex-direction: column; justify-content: space-between"
-  >
+  <div class="base-aside">
     <el-menu
       :unique-opened="true"
-      class="base-aside"
       @select="handleSelect"
       :default-active="menuValue"
       background-color="transparent"
@@ -170,6 +167,18 @@ export default {
 
 <style lang="scss">
 @import "../style/app-variables";
+.base-aside {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  border-image: url("../assets/mapBoeder.png") 32 37 fill / 1 / 0 stretch;
+  border-style: solid;
+  border-width: 12px 12px;
+  background: none;
+  overflow: hidden;
+}
 /*二级菜单hover*/
 .el-submenu .el-menu-item:hover {
   background-color: $table-header !important;
@@ -184,7 +193,7 @@ export default {
   & > li {
     margin: 3px 0 3px 0;
     /*background: linear-gradient(#006699, #000066, #006699);*/
-    background-color: $table-main;
+    background-color: transparent;
   }
   /*  todo 二级菜单选中*/
   .el-menu-item.is-active {
@@ -203,7 +212,7 @@ export default {
   }
   .el-menu,
   .el-menu--inline {
-    background-color: $input-back !important;
+    background-color: transparent;
   }
   /*  todo 已打开*/
   /*

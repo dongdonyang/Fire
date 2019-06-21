@@ -19,7 +19,7 @@ const router = new Router({
     {
       path: "/home",
       name: "home",
-      redirect: { name: "UnitList" }, // 重定向
+      redirect: { name: "UnitMap" }, // 重定向
       component: () => import("./views/home/index"),
       children: [
         //  todo 防火单位

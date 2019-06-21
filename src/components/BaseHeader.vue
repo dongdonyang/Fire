@@ -199,21 +199,24 @@ export default {
 <style lang="scss">
 @import "../style/app-variables";
 .base-header {
-  min-height: 75px; // 为了兼容360浏览器而设置的一个固定高度、否则会被挤压
+  box-sizing: border-box;
+  border-image: url("../assets/mapBoeder.png") 32 37 fill / 1 / 0 stretch;
+  border-bottom-style: solid;
+  border-width: 12px 12px;
+  background: none;
+  height: 70px; // 为了兼容360浏览器而设置的一个固定高度、否则会被挤压
   display: flex;
   justify-content: space-between;
   padding: 0 10px;
   align-items: center;
-  border-bottom: 2px solid $dialog-main;
+  /*border-bottom: 2px solid $dialog-main;*/
   i {
     font-size: 18px;
   }
   & > :nth-child(2) {
     text-align: center;
     font-size: 22px;
-    & > :nth-child(1) {
-      padding-top: 10px;
-    }
+    padding-top: 30px;
   }
   & > :nth-child(1),// 左右两边的固定宽度，为了让中间内容居中
   &-but {
