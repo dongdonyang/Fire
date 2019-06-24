@@ -181,6 +181,7 @@ export default {
 /*todo 二级菜单hover*/
 .el-submenu .el-menu-item {
   &:hover {
+    transition: all 1s ease 0s;
     background-color: $table-header !important;
   }
 }
@@ -199,7 +200,7 @@ export default {
       content: ">";
       float: right;
       position: relative;
-      left: 16px;
+      left: 2px;
     }
   }
   /*todo 一级菜单hover*/
