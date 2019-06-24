@@ -69,6 +69,8 @@ export default {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  & > :first-child {
+  }
   &-content {
     margin-top: 5px;
     flex: 2 0 auto;
@@ -76,11 +78,11 @@ export default {
     & > :last-child {
       margin-left: 10px;
       flex: 2 0 auto;
-      box-sizing: border-box;
       border-image: url("../../assets/mapBoeder.png") 32 37 fill / 1 / 0 stretch;
       border-style: solid;
       border-width: 12px 12px;
       background: none;
+      border-radius: 25px;
     }
   }
   &-aside {

@@ -176,17 +176,13 @@ export default {
   border-image: url("../assets/mapBoeder.png") 32 37 fill / 1 / 0 stretch;
   border-style: solid;
   border-width: 12px 12px;
-  background: none;
   overflow: hidden;
 }
-/*二级菜单hover*/
-.el-submenu .el-menu-item:hover {
-  background-color: $table-header !important;
-}
-/*x二级菜单选中时*/
-.el-submenu .el-menu-item:focus {
-  color: $font-white !important;
-  background-color: $table-header !important;
+/*todo 二级菜单hover*/
+.el-submenu .el-menu-item {
+  &:hover {
+    background-color: $table-header !important;
+  }
 }
 .el-menu {
   border-right: 0;
@@ -199,28 +195,25 @@ export default {
   .el-menu-item.is-active {
     color: $font-white !important;
     background-color: $table-header !important;
-    /*border-right: 6px solid red;*/
+    &:after {
+      content: ">";
+      float: right;
+      position: relative;
+      left: 16px;
+    }
   }
-  .el-menu-item.is-active:after {
-    content: ">";
-    float: right;
-  }
-  /*一级菜单hover*/
+  /*todo 一级菜单hover*/
   .el-submenu__title:hover {
     transition: all 1s ease 0s;
     background-color: $input-back !important;
   }
-  .el-menu,
-  .el-menu--inline {
-    background-color: transparent;
-  }
   /*  todo 已打开*/
   /*
-  .is-opened {
-    .el-submenu__title {
-      background-color: $input-back !important;
+    .is-opened {
+      .el-submenu__title {
+        background-color: $input-back !important;
+      }
     }
-  }
-   */
+     */
 }
 </style>

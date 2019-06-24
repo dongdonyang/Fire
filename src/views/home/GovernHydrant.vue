@@ -251,6 +251,7 @@ export default {
   watch: {
     checked: function() {
       this.page.current = 1;
+      this.page.SkipCount = 0;
       this.getList();
     }
   },

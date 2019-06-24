@@ -413,6 +413,7 @@ export default {
       flex: 2 0 auto;
       & > :first-child {
         min-height: 100%;
+        /*min-height: 400px; // 兼容360浏览器以百分比设置不显示的问题*/
       }
     }
   }

@@ -226,11 +226,21 @@ export default {
 <style lang="scss">
 @import "../style/app-variables.scss";
 .base-table {
-  /*TODO 去掉行之间的线条*/
-  /*.el-table th.is-leaf,*/
-  /*.el-table td {*/
-  /*  border-bottom-width: 0;*/
+  /* todo 背景色透明*/
+  /*.el-table,*/
+  /*.el-table__expanded-cell {*/
+  /*  background-color: transparent ;*/
   /*}*/
+
+  /*el-table th,*/
+  /*.el-table tr {*/
+  /*  background-color: transparent;*/
+  /*}*/
+  /*TODO 去掉行之间的线条*/
+  .el-table th.is-leaf,
+  .el-table td {
+    border-bottom-width: 1px;
+  }
   i {
     padding: 0 4px;
   }

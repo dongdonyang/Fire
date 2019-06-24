@@ -82,7 +82,7 @@ export default {
   }
   /*  todo 选中时*/
   .el-pagination.is-background .el-pager li:not(.disabled).active {
-    background-color: $body-back !important;
+    background-color: $table-main !important;
     border: 1px solid $table-header;
   }
   /*  todo 未选中时/展开更多按钮*/

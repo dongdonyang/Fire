@@ -204,7 +204,7 @@ export default {
   border-bottom-style: solid;
   border-width: 12px 12px;
   background: none;
-  height: 70px; // 为了兼容360浏览器而设置的一个固定高度、否则会被挤压
+  height: 75px; // 为了兼容360浏览器而设置的一个固定高度、否则会被挤压
   display: flex;
   justify-content: space-between;
   padding: 0 10px;

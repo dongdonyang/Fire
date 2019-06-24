@@ -168,6 +168,7 @@ export default {
     // 监听是否否选7天、1天按钮
     checked: function(value) {
       this.page.current = 1;
+      this.page.SkipCount = 0;
       this.url = URL_ADDRESS[this.tabValue][value];
       this.getList();
     },

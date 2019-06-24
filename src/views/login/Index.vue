@@ -31,7 +31,7 @@
             >
               <i slot="prefix" class="el-input__icon el-icon-key"></i>
             </el-input>
-            <img :src="imgUrl" />
+            <img :src="imgUrl" alt="" />
             <el-button @click="getCode" type="text" class="el-icon-refresh"
               >换一张</el-button
             >

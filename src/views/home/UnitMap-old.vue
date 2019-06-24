@@ -16,7 +16,7 @@
           </el-form-item>
           <el-form-item label-width="0px">
             <el-table
-                    size="amsll"
+              size="amsll"
               border
               class="unit-map-table"
               :data="tableData"
@@ -409,7 +409,8 @@ export default {
       flex: 2 0 auto;
       margin-top: 5px;
       & > :first-child {
-        min-height: 70%;
+        min-height: 80%;
+        /*min-height: 400px; // 兼容360浏览器、以及屏幕较小的电脑*/
       }
     }
   }
