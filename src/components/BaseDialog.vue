@@ -12,11 +12,11 @@
     <!--    <el-button @click="isFull = !isFull">全屏</el-button>-->
     <span slot="footer" class="dialog-footer" v-if="isShowFooter">
       <el-button v-if="!isDeit" type="text" @click="submit"
-        ><img src="../assets/save.png"
+        ><img src="../assets/save.png" alt=""
       /></el-button>
 
       <el-button v-else type="text" @click="editInfo"
-        ><img src="../assets/xg_btn.png"
+        ><img src="../assets/xg_btn.png" alt=""
       /></el-button>
     </span>
   </el-dialog>
@@ -35,7 +35,6 @@
  *  6,事先定义好基础的公共组件，全局注册
  */
 
-import Vue from "vue";
 export default {
   name: "BaseDialog",
   // Todo: 组件注册

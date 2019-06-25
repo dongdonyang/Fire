@@ -6,7 +6,6 @@
       :default-active="menuValue"
       background-color="transparent"
       text-color="#fff"
-      active-text-color="#167fc1"
     >
       <el-submenu
         v-for="(item, index) in asideList"
@@ -17,11 +16,12 @@
           <img alt="" :src="item.icon" />
           {{ item.title }}</template
         >
-        <el-menu-item v-for="(a, b) in item.child" :key="b" :index="a.url">{{
-          a.name
-        }}</el-menu-item>
+        <el-menu-item v-for="(a, b) in item.child" :key="b" :index="a.url">
+          {{ a.name }}
+        </el-menu-item>
       </el-submenu>
     </el-menu>
+    <!--    todo 公司logo-->
     <div class="base-footer">
       <a :href="$store.state.SCREEN_URL">
         <img src="../assets/logo.png" alt="" />
@@ -173,9 +173,11 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   box-sizing: border-box;
-  border-image: url("../assets/mapBoeder.png") 32 37 fill / 1 / 0 stretch;
-  border-style: solid;
-  border-width: 12px 12px;
+  border: {
+    image: url("../assets/mapBoeder.png") 32 37 fill / 1 / 0 stretch;
+    style: solid;
+    width: 12px 12px;
+  }
   overflow: hidden;
 }
 /*todo 二级菜单hover*/
@@ -189,7 +191,6 @@ export default {
   border-right: 0;
   & > li {
     margin: 3px 0 3px 0;
-    /*background: linear-gradient(#006699, #000066, #006699);*/
     background-color: transparent;
   }
   /*  todo 二级菜单选中*/
