@@ -22,7 +22,8 @@
               :data="tableData"
               style="width: 100%"
             >
-              <el-table-column prop="name" label="数据类型"> </el-table-column>
+              <el-table-column prop="name" align="center" label="数据类型">
+              </el-table-column>
               <el-table-column prop="value" align="center" label="最近30天记录">
               </el-table-column>
             </el-table>
@@ -308,8 +309,8 @@ export default {
       let yAxisData = [],
         seriesData = [];
       for (let item of val) {
-        yAxisData.push(item.x);
-        seriesData.push(item.y);
+        yAxisData.unshift(item.x);
+        seriesData.unshift(item.y);
       }
       // 基于准备好的dom，初始化echarts实例
       let myChart = this.$echarts.init(document.getElementById("myChart"));
@@ -442,6 +443,16 @@ export default {
     }
   }
   /* todo table*/
+  /* todo 背景色透明*/
+  .el-table,
+  .el-table__expanded-cell {
+    background-color: transparent;
+  }
+
+  el-table th,
+  .el-table tr {
+    background-color: transparent;
+  }
   .el-table th.is-leaf,
   .el-table td {
     border-color: $font-white;
@@ -452,19 +463,19 @@ export default {
   }
   .el-table th {
     line-height: 20px;
-    background-color: #000033;
+    background-color: transparent;
     color: $font-white;
   }
   &-table {
-    background-color: $table-body;
+    background-color: transparent;
     margin: 5px 0;
     tbody {
       color: $font-white;
       & > :nth-child(2n) {
-        background-color: $table-body;
+        background-color: transparent;
       }
       & > :nth-child(2n + 1) {
-        background-color: $table-main;
+        background-color: transparent;
       }
     }
   }

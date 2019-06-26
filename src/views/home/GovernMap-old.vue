@@ -257,8 +257,8 @@ export default {
       let yAxisData = [],
         seriesData = [];
       for (let item of res) {
-        yAxisData.push(item.x.slice(5, 10)); // 截取时间月日
-        seriesData.push(item.y);
+        yAxisData.unshift(item.x.slice(5, 10)); // 截取时间月日
+        seriesData.unshift(item.y);
       }
       // 基于准备好的dom，初始化echarts实例
       let myLine = this.$echarts.init(document.getElementById("myLineChart"));
@@ -311,8 +311,8 @@ export default {
       let yAxisData = [],
         seriesData = [];
       for (let item of val) {
-        yAxisData.push(item.x);
-        seriesData.push(item.y);
+        yAxisData.unshift(item.x);
+        seriesData.unshift(item.y);
       }
       // 基于准备好的dom，初始化echarts实例
       let myChart = this.$echarts.init(document.getElementById("myChart"));

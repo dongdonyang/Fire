@@ -110,7 +110,12 @@
     </base-dialog>
 
     <!--      todo 最近30天报警记录-->
-    <base-dialog ref="alarmRecord" :is-show-footer="false" class="alarm-record">
+    <base-dialog
+      ref="alarmRecord"
+      :is-show-footer="false"
+      class="alarm-record"
+      dia-width="900px"
+    >
       <div>
         <span>[成华区服务中心]消火栓报警监控</span>
         <span>总次数：{{ recordPage.total }}</span>
@@ -195,12 +200,12 @@ export default {
           prop: "lastAlarmTime",
           label: "最近报警时间"
         },
-        // {
-        //   prop: "nearbyAlarmNumber",
-        //   label: "最近30天报警次数",
-        //   slot: "nearbyAlarmNumber",
-        //   unit: "次"
-        // },
+        {
+          prop: "nearbyAlarmNumber",
+          label: "最近30天报警次数",
+          slot: "nearbyAlarmNumber",
+          unit: "次"
+        },
         {
           prop: "status",
           label: "网关状态",
@@ -213,12 +218,12 @@ export default {
       ],
       detailTableList: [
         {
-          prop: "creationTime",
-          label: "时间"
-        },
-        {
           prop: "title",
           label: "事件"
+        },
+        {
+          prop: "creationTime",
+          label: "时间"
         }
       ],
       partTableData: [],
@@ -303,7 +308,7 @@ export default {
         this.$refs.alarmRecord.show = true;
       });
     },
-    // todo 分页查询slot数据
+    // todo 分页查询slot数据、最近30天报警次数
     async slotPageDetail() {
       let p = this.recordPage;
       p.SkipCount = (p.current - 1) * p.MaxResultCount;
@@ -313,6 +318,10 @@ export default {
         })
         .then(res => {
           if (res.success) {
+            // 遍历取去掉秒
+            for (let y of res.result.items) {
+              y.creationTime = y.creationTime.slice(0, 16);
+            }
             ({ items: this.partTableData, totalCount: p.total } = res.result);
           }
         });
