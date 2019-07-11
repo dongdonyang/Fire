@@ -65,6 +65,7 @@
     <!--    todo table 列表-->
     <base-table
       @slotDetail="slotDetail"
+      @getOffline="getOffline"
       :column-list="tableList"
       :table-data="tableData"
     ></base-table>
@@ -114,6 +115,28 @@
         @currentChange="slotDetail"
       ></base-page>
     </base-dialog>
+
+    <!--    todo 部分离线弹窗-->
+    <base-dialog
+      ref="getOfflineList"
+      dia-width="900px"
+      class="alarm-record"
+      :is-show-footer="false"
+    >
+      <div>
+        <span>{{ slotValue.fireUnitName }}</span>
+        <span style="float: right">总数量：{{ offlinePage.total }}</span>
+      </div>
+      <base-table
+        :column-list="OfflineTable"
+        :table-data="OfflineList"
+      ></base-table>
+      <!--        分页-->
+      <base-page
+        v-bind:prop-pag.sync="offlinePage"
+        @currentChange="getOffline"
+      ></base-page>
+    </base-dialog>
   </div>
 </template>
 
@@ -142,6 +165,21 @@ export default {
   // Todo: 双向绑定的数据
   data() {
     return {
+      OfflineList: [], // 部分离线数据
+      OfflineTable: [
+        {
+          prop: "gateway",
+          label: "设备网关"
+        },
+        {
+          prop: "location",
+          label: "安装位置"
+        },
+        {
+          prop: "status",
+          label: "在线状态"
+        }
+      ], // 字段关系
       slotValue: {},
       slotName: "",
       slotPage: {
@@ -218,6 +256,13 @@ export default {
         }
       ],
       page: {
+        MaxResultCount: 10, // 查询当前页面的数量
+        total: 0,
+        SkipCount: 0, // 跳过的查询的数量
+        current: 1 // 当前页面
+      },
+      offlinePage: {
+        FireSysType: 2, // 1:安全用电，2:火灾报警
         MaxResultCount: 10, // 查询当前页面的数量
         total: 0,
         SkipCount: 0, // 跳过的查询的数量
@@ -311,6 +356,25 @@ export default {
               items: this.tableData,
               totalCount: this.page.total
             } = res.result);
+          }
+        });
+    },
+    //  todo 获取部分离线数据
+    getOffline(item) {
+      if (arguments.length) {
+        this.slotValue = item;
+        this.offlinePage.FireUnitId = item.fireUnitId;
+      }
+      this.$axios
+        .get(this.$api.GET_FIRE_UNIT_GATEWAYS_STATUS, {
+          params: this.offlinePage
+        })
+        .then(res => {
+          if (res.success) {
+            this.$refs.getOfflineList.title = "OFFLINE_TABLE";
+            this.$refs.getOfflineList.show = true;
+            this.OfflineList = res.result.items;
+            this.offlinePage.total = res.result.totalCount;
           }
         });
     }

@@ -72,6 +72,9 @@ const API = {
   GetSupervisionItem: "/api/services/app/Supervision/GetSupervisionItem", //获取所有监管执法项目
   GET_SUPERVISION_LIST_EXCEL:
     "/api/services/app/Supervision/GetSupervisionListExcel", //监督查询EXCEL导出
+  GET_FIRE_UNIT_GATEWAYS_STATUS:
+    "/api/services/app/Device/GetFireUnitGatewaysStatus", //查询防火单位网关状态列表
+  GET_FIRE_UNIT_REPORT_DATA: "/api/services/app/FireUnit/GetFireUnitReportData", //得到防火单位报表数据
 
   //    todo 消防维保模块
   GET_SAFE_KEY: "/api/services/app/SafeUnit/GetSelectSafeUnits", //查询维保单位(模糊查询)新增时候使用

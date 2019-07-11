@@ -3,23 +3,39 @@
     <!--    todo 筛选-->
     <div class="unit-list-header">
       <div>
-        <el-input
-          clearable
-          size="small"
-          placeholder="请输入单位名称"
-          v-model="page.Name"
-          @change="
-            $store.dispatch({
-              type: 'setPage',
-              page: page,
-              fun: getList
-            })
-          "
-        >
-          <template slot="append"
-            ><i class="el-icon-search"></i
-          ></template>
-        </el-input>
+        <div>
+          <el-input
+            clearable
+            size="small"
+            placeholder="请输入单位名称"
+            v-model="page.Name"
+            @change="
+              $store.dispatch({
+                type: 'setPage',
+                page: page,
+                fun: getList
+              })
+            "
+          >
+            <template slot="append"
+              ><i class="el-icon-search"></i
+            ></template>
+          </el-input>
+        </div>
+        <span>
+          <small>为什么部分单位显示为黄色</small>
+          <el-popover placement="top-start" trigger="hover">
+            <P>黄色表示该单位的智慧消防系统可能存在以下问题， 建议重点关注：</P>
+            <ul>
+              <li>火警数据采集传输装置或安全用电监测装置存在部分离线情况</li>
+              <li>消防设施故障超期未处理的比例较高</li>
+              <li>近30天没有值班记录或巡查记录</li>
+            </ul>
+            <el-button type="text" slot="reference"
+              ><i class="el-icon-question"></i
+            ></el-button>
+          </el-popover>
+        </span>
       </div>
       <div>
         <el-button type="text" @click="addInfo"
@@ -35,10 +51,12 @@
 
     <!--    todo table列表-->
     <base-table
+      :is-show-report="true"
       :column-list="tableList"
       :table-data="tableData"
       @deleteInfo="deleteInfo"
       @getDetail="getDetail"
+      @getReport="getReport"
     ></base-table>
 
     <!--      todo 分页-->
@@ -156,6 +174,9 @@
         @setPosition="setPosition"
       ></base-map>
     </base-dialog>
+
+    <!--      todo 报告单-->
+    <unit-report ref="UnitReport"></unit-report>
   </div>
 </template>
 
@@ -173,13 +194,15 @@
 import BaseTable from "../../components/BaseTable";
 import BasePage from "../../components/BasePage";
 import BaseMap from "../../components/BaseMap";
+import UnitReport from "../../components/UnitReport"; // 报告单弹窗
 export default {
   name: "UnitList",
   // Todo: 组件注册
   components: {
     BasePage,
     BaseTable,
-    BaseMap
+    BaseMap,
+    UnitReport
   },
   // Todo: 特性
   props: {},
@@ -209,7 +232,9 @@ export default {
       tableList: [
         {
           prop: "name",
-          label: "单位名称"
+          label: "单位名称",
+          badKey: "isBad", // 对应的字段
+          badClass: "badName" // 部分数据的样式
         },
         {
           prop: "type",
@@ -228,7 +253,7 @@ export default {
           label: "邀请码"
         },
         {
-          width: "140px",
+          width: "260px",
           label: "操作"
         }
       ],
@@ -334,7 +359,7 @@ export default {
         this.safeUnitsOpt = [];
       }
     },
-    // 查询维保单位list
+    // todo 查询维保单位list
     getSafeList(Name = "") {
       this.$axios
         .get(this.$api.GET_SAFE_KEY, {
@@ -385,6 +410,10 @@ export default {
         })
         .then(res => {
           if (res.success) {
+            // todo 给前5条数据加上黄色属性、根据这个字段来判断单位名称是否显示为黄色、res.result.items不够5条数据时会报错！！！！！
+            for (let x = 0; x < 5; x++) {
+              res.result.items[x].isBad = true;
+            }
             ({
               items: this.tableData,
               totalCount: this.page.total
@@ -448,6 +477,10 @@ export default {
           });
         }
       });
+    },
+    //    todo 获取报告
+    getReport(val) {
+      this.$refs.UnitReport.getInfo(val);
     }
   }
 };
@@ -463,6 +496,14 @@ export default {
     align-items: center;
     justify-content: space-between;
     padding: 0 10px;
+    & > :first-child {
+      display: flex;
+      small {
+        margin: 0 0 10px 10px;
+        color: #c0c0c0;
+        opacity: 0.6;
+      }
+    }
     & > :last-child {
       float: right;
       img {

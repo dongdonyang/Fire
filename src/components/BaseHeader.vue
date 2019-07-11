@@ -3,7 +3,7 @@
     <div></div>
 
     <div>
-      <div>城市智慧消防一体化工作台</div>
+      <div>城市智慧消防预警工作台</div>
       <div class="base-header-tit"></div>
     </div>
 

@@ -77,7 +77,8 @@ export default {
         ALARM_COUNT: "最近30天报警记录",
         UNIT_INSPECT_DETAIL: "监督检查详情",
         STREET_EVENT_DETAIL: "事件详情",
-        GET_MAP_POSITION: "地图定位"
+        GET_MAP_POSITION: "地图定位",
+        OFFLINE_TABLE: "离线部件"
       },
       isFull: false,
       show: false,

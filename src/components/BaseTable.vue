@@ -14,10 +14,18 @@
           <!--            todo 操作-->
           <span v-if="!item.prop">
             <el-button
-              @click="getDetail(scope.row.id, $event)"
+              v-if="isShowReport"
+              @click="getReport(scope.row.id, $event)"
               size="mini"
               type="text"
               icon="el-icon-tickets"
+              >智慧消防报告</el-button
+            >
+            <el-button
+              @click="getDetail(scope.row.id, $event)"
+              size="mini"
+              type="text"
+              icon="el-icon-search"
               >详情</el-button
             >
             <el-button
@@ -41,12 +49,27 @@
           <span
             v-else-if="item.map"
             :class="getName(scope.row[item.prop], item, 'className')"
-            >{{ getName(scope.row[item.prop], item, "label") }}</span
           >
+            <span v-if="scope.row[item.prop] != '部分离线'">
+              {{ getName(scope.row[item.prop], item, "label") }}
+            </span>
+            <el-button
+              @click="getOffline(scope.row)"
+              style="color: #e6a23c !important;"
+              v-else
+              type="text"
+              >{{ getName(scope.row[item.prop], item, "label") }}</el-button
+            >
+          </span>
           <!--          todo 默认数据-->
-          <span v-else>{{ scope.row[item.prop] | capitalize(item) }}</span>
+          <span
+            v-else
+            :class="classObject(item.badClass, scope.row[item.badKey])"
+            >{{ scope.row[item.prop] | capitalize(item) }}</span
+          >
         </template>
       </el-table-column>
+
       <!--      todo 无数据的展示页面-->
       <template slot="empty">
         暂无数据<i class="el-icon-brush"></i>
@@ -86,6 +109,10 @@ export default {
     isShowDelete: {
       type: Boolean,
       default: true
+    },
+    isShowReport: {
+      type: Boolean,
+      default: false
     }
   },
   // todo 过滤器
@@ -167,6 +194,11 @@ export default {
           label: "异常",
           value: -2,
           className: "shutDown"
+        },
+        {
+          label: "部分离线",
+          value: -3,
+          className: "shutDown"
         }
       ],
       // 在线、离线样式表
@@ -180,6 +212,11 @@ export default {
           value: "在线",
           label: "在线",
           className: "normal"
+        },
+        {
+          value: "部分离线",
+          label: "部分离线",
+          className: "correctNow"
         }
       ]
     };
@@ -194,22 +231,66 @@ export default {
   mounted: function() {},
   // Todo: 方法
   methods: {
-    // todo 获取中文 /获取样式 样式映射表，根据不同的类型和不同的值返回不同的class样式name
+    // todo
+    /**
+     *@fileOverview 获取中文 /获取样式 样式映射表，根据不同的类型和不同的值返回不同的class样式name
+     * @param val 当前行对象的具体数字、可能是数字、中文、来赋上不同颜色
+     * @param item columnList对象中的map匹配对象名称
+     * @param nature 返回label中文名还是classname样式名
+     */
     getName(val, item, nature) {
       let name = this[item.map].find(i => {
         return i.value === val;
       });
       return name[nature] ? name[nature] : "";
     },
-    // todo 某一列的详情
+    /**
+     *@fileOverview 注册当前行某一列的事件
+     * @param val 当前行数据对象
+     * @param slotName 当前slot的名称
+     */
     getSlotDetail(val, slotName) {
       this.$emit("slotDetail", val, slotName);
     },
-    //    todo 详情
+    /**
+     *@fileOverview 获取当前行对象详情
+     * @param id 行对象id
+     * @param event 原生点击事件
+     */
     getDetail(id, event) {
       this.$emit("getDetail", id, event);
     },
-    //    todo 删除
+    /**
+     * @fileOverview 获取部分离线数据
+     * @param item 行数据对象
+     */
+    getOffline(item) {
+      console.log(item);
+      this.$emit("getOffline", item);
+    },
+    /**
+     * @fileOverview 获取部分数据的单独class、用法参考unitlist页面
+     * @param item 返回的class名称
+     * @param value 判断条件
+     * @returns {*}
+     */
+    classObject(item, value) {
+      if (value) {
+        return item;
+      }
+    },
+    /**
+     * @fileOverview 获取报告详情
+     * @param id 单位id
+     * @param event 原生点击事件
+     */
+    getReport(id, event) {
+      this.$emit("getReport", id, event);
+    },
+    /**
+     * @fileOverview 删除当前行
+     * @param val 行数据对象
+     */
     deleteInfo(val) {
       isDelete()
         .then(() => {
@@ -225,6 +306,7 @@ export default {
 
 <style lang="scss">
 @import "../style/app-variables.scss";
+
 .base-table {
   /* todo 背景色透明*/
   /*.el-table,*/
@@ -275,6 +357,10 @@ export default {
   }
 }
 /*  todo 中文样式映射表、为了最大的扩展性、虽然现在只存在颜色不同、但这种情况下可以添加各种不同的样式、比单独传一个颜色值要好的多*/
+/* 单位列表部分名称显示为黄色*/
+.badName {
+  color: #e6a23c;
+}
 .normal {
   color: #67c23a;
 }
