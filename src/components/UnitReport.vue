@@ -80,25 +80,16 @@
       <div class="content">
         <ul>
           <li>
-            {{ form.dutyLastTime }}日以来，共计提交{{
+            {{ form.firstDutyTime }}日以来，共计提交{{
               form.duty30DayCount
-            }}条值班记录，
-          </li>
-          <!--          todo 时间和数量没字段-->
-          <li>
-            最近提交时间：{{ form.dutyLastTime }}， 最近30天提交记录数：{{
-              form.duty30DayCount
-            }}
+            }}条值班记录， 最近提交时间：{{ form.dutyLastTime }}，
+            最近30天提交记录数：{{ form.duty30DayCount }}
           </li>
           <li>
             {{ form.firstPatrolTime }}日以来，共计提交{{
               form.patrolCount
-            }}条巡查记录，
-          </li>
-          <li>
-            最近提交时间：{{ form.patrolLastTime }}， 最近30天提交记录数：{{
-              form.patrol30DayCount
-            }}
+            }}条巡查记录， 最近提交时间：{{ form.patrolLastTime }}，
+            最近30天提交记录数：{{ form.patrol30DayCount }}
           </li>
         </ul>
       </div>
@@ -138,7 +129,7 @@ export default {
         type: "暂无类型信息",
         contractName: "暂无联系人信息",
         safeUnit: "暂无维保单位信息",
-        nearMinistation: "暂无最近消防站信息",
+        nearMinistation: "暂无周边消防站信息",
         ministationCount: "0",
         fireUnitName: "暂无防火单位名称信息",
         elecECount: "0",
@@ -189,6 +180,11 @@ export default {
           label: "联系人：",
           icon: require("../assets/report_img_04.png"),
           value: "contractName"
+        },
+        {
+          label: "联系方式：",
+          icon: require("../assets/report_img_04.png"),
+          value: "contractPhone"
         },
         {
           label: "维保单位：",
