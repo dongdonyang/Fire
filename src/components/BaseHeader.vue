@@ -137,6 +137,10 @@ export default {
         HydrantPressure: {
           title: "市政消火栓水压标准范围",
           unit: "kPa"
+        },
+        HydrantDumpEnergy: {
+          title: "电量预警值",
+          unit: "mA"
         }
       }
     };
