@@ -226,6 +226,7 @@ export default {
           }
         })
         .catch(() => {
+          this.$message("该单位智慧消防报告暂未生成!")
           this.form = {};
           this.show = false;
         });

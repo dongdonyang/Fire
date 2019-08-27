@@ -43,7 +43,7 @@ service.interceptors.response.use(
     NProgress.done();
     //  todo 打印错误
     if (error.response) {
-      Message.error(JSON.stringify(error.response.data.error));
+      // Message.error(JSON.stringify(error.response.data.error));
     }
     return Promise.reject(error);
   }

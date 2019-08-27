@@ -411,9 +411,12 @@ export default {
         .then(res => {
           if (res.success) {
             // todo 给前5条数据加上黄色属性、根据这个字段来判断单位名称是否显示为黄色、res.result.items不够5条数据时会报错！！！！！
-            for (let x = 0; x < 5; x++) {
-              res.result.items[x].isBad = true;
+            if (this.page.current === 1) {
+              for (let x = 0; x < 5; x++) {
+                res.result.items[x].isBad = true;
+              }
             }
+
             ({
               items: this.tableData,
               totalCount: this.page.total
